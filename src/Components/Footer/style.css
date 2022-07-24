@@ -1,0 +1,18 @@
+.footer
+{
+    background-color:white;
+    overflow:hidden;
+    color:var(--theme-color);
+}
+.footer h3{
+    font-size:1.125em;
+    padding: 1%;
+}
+.footer ul{
+    list-style: none;
+    padding:0;
+}
+.copy-right{
+    text-align:center;
+    color:white;
+}

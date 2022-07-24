@@ -1,0 +1,48 @@
+.details{
+    background-color: white;
+    margin:0 2% 2% 2%;
+}
+.details h1{
+    font-size:1.25em;
+    margin-bottom:2%;
+    display: inline-block;
+    padding:2px;
+    color:var(--theme-color);
+    background-color:#f3f3f3;
+    border-bottom:2px dotted var(--theme-color);
+    border-bottom-right-radius:10px;
+}
+.details .btn-cart{
+    border:1px solid silver;
+    border-radius:var(--pref-border-radius);
+    margin:1%;
+    background-color: var(--theme-color);
+    color:white;
+}
+.details img{
+    width:150px;
+    border-radius:5px;
+}
+.details .shoe-name{
+    font-size:1.125em;
+    font-weight:bold;
+}
+.details .size-container .size{
+    display: inline-block;
+    width:30px;
+    height:30px;
+    line-height: 30px;
+    border-radius:50%;
+    background-color: #f3f3f3;
+    color:var(--theme-color);
+    text-align: center;
+    margin:1%;
+    border-bottom:2px dotted var(--theme-color);
+    font-weight:bold;
+}
+.details .description{
+    background-color:rgba(245, 245, 245, 0.76);
+    border-radius:5px;
+    margin:2%;
+    font-size:0.875em;
+}

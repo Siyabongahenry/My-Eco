@@ -1,0 +1,24 @@
+.login{
+    width:40%;
+    margin:2% 30%;
+    padding:2%;
+    background-color: white;
+    box-shadow: -2px -2px 2px silver, 2px 2px 2px silver;
+}
+.login h1{
+    font-size:1.125em;
+    padding:1%;
+    background-color: var(--theme-color);
+    color:white;
+    text-align: center;
+}
+.login h1 span{
+    color:black;
+}
+.login .btn-login{
+    border-color:silver;
+    border-radius:var(--pref-border-radius);
+    background-color: var(--theme-color);
+    color:white;
+    padding:0.125em 0.625em;
+}

@@ -1,0 +1,126 @@
+.sale-items h2{
+    font-size: 1.125em;
+    background-color: var(--theme-color);
+    color: white;
+    margin-top:2%;
+    padding:1%;
+}
+.sale-item{
+    padding: 2%;
+    background-color: white;
+    overflow: hidden;
+    box-shadow:2px 2px 2px;
+    border-radius:5px;
+    position:relative;
+}
+.sale-item .sale-percent{
+    text-align: center;
+    font-size: 1em;
+}
+.sale-item .percent-tag{
+    display: inline-block;
+    min-width:100px;
+    height:30px;
+    line-height: 30px;
+    padding-right:15px;
+    text-align: center;
+    background-color: var(--theme-color);
+    color:white;
+    position:relative;
+    text-decoration: line-through;
+}
+.sale-item .percent-tag::before{
+    content: "";
+    position:absolute;
+    left:-30px;
+    top:0;
+    border:15px solid transparent;
+    border-right-color:var(--theme-color);
+
+}
+.sale-item .percent-tag::after{
+    content: "";
+    position:absolute;
+    right:0;
+    top:0;
+    border:15px solid transparent;
+    border-right-color:white;
+
+}
+.sale-item img{
+    max-width:150px;
+    border-radius: 5px;
+}
+.sale-item .name{
+    text-align: center;
+    font-size: 1.125em;
+}
+.sale-item .price{
+    font-weight: bold;
+    text-align: right;
+    left:10%;
+    font-size:1.25em;
+}
+.sale-item .old-price{
+    text-decoration: line-through;
+    color:var(--theme-color);
+    font-size:0.675em;
+}
+.sale-item .btn-cart{
+    width:100%;
+    font-weight: bold;
+    border-radius:var(--pref-border-radius);
+    border-color: silver;
+    color:white;
+    background-color: var(--theme-color);
+    padding:2%;
+
+}
+
+.sale-item .btn-change-sale{
+    background-color: transparent;
+    border:none;
+    color:var(--theme-color);
+    position:absolute;
+    top:40%;
+}
+.sale-item .btn-next{
+    right:2%;
+}
+.sale-item .btn-prev{
+    left:2%;
+}
+.sale-item .btn-change-sale small{
+    font-size:0.625em;
+}
+.sale-item .btn-change-sale:hover{
+    color:black;
+}
+.btn-change-sale:focus{
+    outline:none;
+}
+
+.sale-items .btn-email-submit,
+.sale-items .user-email-input{
+    border:1px solid var(--theme-color);
+    line-height:20px;
+    padding:4px;
+    float: left;
+}
+.sale-items .btn-email-submit{
+    border-left:none;
+    color:white;
+    background-color:var(--theme-color);
+    width:20%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius:5px;
+}
+.sale-items .user-email-input{
+    border-right:none;
+    width:80%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius:5px;
+}
+.focus-outline-none:focus{
+    outline: none;
+}

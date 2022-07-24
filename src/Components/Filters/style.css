@@ -1,0 +1,25 @@
+.store-filter{
+    padding:2%;
+    background-color:white;
+    margin-top:2%;
+    overflow: hidden;
+} 
+.store-filter h3{
+    margin: 0;
+    margin-bottom: 2%;
+    font-size:1em;
+}
+.store-filter ul{
+    padding:0;
+    margin:0;
+    list-style: none;
+}
+.store-filter li{
+    padding:2%;
+    cursor: pointer;
+}
+.store-filter .selected{
+    background-color: var(--theme-color);
+    color:white;
+    font-weight: bold;
+}
