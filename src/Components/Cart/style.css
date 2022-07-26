@@ -41,6 +41,18 @@
     font-weight: bold;
     text-align: right;
 }
+.cart .quantity{
+    display:inline-block;
+    font-weight: bold;
+    border-bottom:2px dotted var(--theme-color);
+    border-radius: 50%;
+}
+.cart .btn-save-changes{
+    border-color: silver;
+    border-radius:var(--pref-border-radius);
+    background-color: var(--theme-color);
+    color:white;
+}
 .cart .cart-summary{
     background-color: white;
     box-shadow:2px 2px 2px silver;

@@ -2,10 +2,10 @@ import "./style.css";
 import { FaShoppingCart,FaArrowUp,FaArrowDown,FaTrash, FaEye } from "react-icons/fa";
 import { priceFormat } from "../../Services/Format/currency";
 import { useState } from "react";
-const Cart =({cart,cartItems})=>{
+const Cart =({cart,cartItems,delCartItem})=>{
     return (
             <div className="container-fluid cart">
-                <h1 className="text-center"><FaShoppingCart/> Cart</h1>
+                <h1 className="text-center text-theme"><FaShoppingCart/></h1>
                 {
                   cartItems.length <= 0?
                     <div>
@@ -18,9 +18,8 @@ const Cart =({cart,cartItems})=>{
                                 <div key={item.id} className="col-12 col-lg-3">
                                     <div className="cart-item">
                                         <div className="overflow-hidden text-center">
-                                            <FaEye className="float-start text-info"/>
-                                            <FaTrash className="float-end text-danger"/>
-
+                                            <FaEye className="float-start text-theme"/>
+                                            <FaTrash className="float-end text-danger" onClick={()=>{delCartItem(item.id)}}/>
                                             <span className="size">size: 0</span>
                                         </div>
                                         <div className="text-center">
@@ -30,14 +29,14 @@ const Cart =({cart,cartItems})=>{
                                             {item.shoe.name}
                                         </p>
                                         <div >
-                                            Quantity: <FaArrowDown className="text-primary" onClick=""/><span className="quantity">{item.quantity}</span><FaArrowUp className="text-primary" onClick=""/>
-                                            <button className="btn btn-primary">save changes</button>
+                                            Quantity: <FaArrowDown className="text-theme"/><span className="quantity">{item.quantity}</span><FaArrowUp className="text-theme"/>
+                                            <button className="btn-save-changes">save changes</button>
                                         </div>
                                         <p className="item-price">
                                             { priceFormat(item.shoe.price)}
                                         </p>
                                         <p className="text-end">
-                                            <b className="text-success">subtotal: { priceFormat(item.subtotal)}</b>
+                                            <b className="text-theme">subtotal: { priceFormat(item.subtotal)}</b>
                                         </p>
                                     </div>
                                 </div>

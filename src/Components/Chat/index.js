@@ -1,7 +1,11 @@
 import "./style.css";
 import { FaCheckDouble,FaPaperPlane,FaRobot } from "react-icons/fa";
-import { useState } from "react";
+import { useState,useEffect, useRef } from "react";
 const Chat = ()=>{
+    const chatBodyRef = useRef(null);
+
+    const[botTrigger,setBotTrigger] = useState(false);
+
     const[chats,setChats] = useState([
         {
             "id":1,
@@ -9,8 +13,7 @@ const Chat = ()=>{
             "1. Order queries\n"+
             "2. Cart queries\n"+
             "3: Favourite queries\n"+
-            "4. Shoe queries\n\n"+
-            "Please type a number..",
+            "4. Shoe queries",
             "time":"12:45",
             "date":"2021-06-24",
             "senderId":23,
@@ -19,9 +22,28 @@ const Chat = ()=>{
     ]);
 
     const[message,setMessage] = useState("");
-    const sendChat = (e)=>{
-        e.preventDefault();
 
+    //bot response after a user send a chat
+    useEffect(()=>{
+        setTimeout(()=>{setChats([...chats,botResponse(chats[chats.length-1].message)]) },2000);
+    },[botTrigger]);
+    
+    useEffect(()=>{
+        scrollToBottom();
+    },[chats]);
+
+    const scrollToBottom = ()=>{
+        if(chatBodyRef.current === null) return;
+
+        let chatBody = chatBodyRef.current;
+        let scrollValue = chatBody.scrollHeight - chatBody.clientHeight;
+        chatBody.scrollTo({ top: scrollValue, behavior: "smooth" });
+
+    }
+    const sendChat = (e)=>{
+        if(message.replaceAll(" ") == "") return;
+
+        e.preventDefault();
         let newChat = {
             "id":6,
             "userId":20,
@@ -32,10 +54,9 @@ const Chat = ()=>{
             "receiverId":23
         }
 
-        
         setChats([...chats,newChat]);
-        console.log("This is the message:"+message);
-        setTimeout(()=>{setChats([...chats,newChat,botResponse(message)]) },5000);
+        setMessage("");
+        setBotTrigger(!botTrigger);
     }
     const botResponse = (option)=>{
         let newChat = {
@@ -73,7 +94,7 @@ const Chat = ()=>{
                 <div className="chat-nav">
                     <FaRobot className="robot-head"/>
                 </div>
-                <div className="chat-body">
+                <div className="chat-body" ref={chatBodyRef}>
                     {
                         chats.map((chat)=>
                         

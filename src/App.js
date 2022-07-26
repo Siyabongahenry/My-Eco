@@ -1,4 +1,4 @@
-import {useState,useEffect,createContext,useContext} from "react";
+import {useState,useEffect,createContext,useContext, Component} from "react";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import Footer from "./Components/Footer/index";
 import Store from "./Components/Store/index";
@@ -44,6 +44,23 @@ function App()
         getFavourite();
 
     },[]);
+    useEffect(()=>{
+        
+        const updateCart=async ()=>{
+            let totalPrice = cartItems.reduce((acc,curr)=>acc+curr.subtotal,0);
+            let quantity = cartItems.reduce((acc,curr)=>acc+curr.quantity,0);
+            
+            let newCart = {
+                ...cart,
+                "total":totalPrice,
+                "quantity":quantity
+            };
+            await postItems("cart",newCart);
+            setCart({...newCart});
+        }
+
+        updateCart();
+    },[cartItems]);
     const fetchItems = async (url)=>{
         const response = await  fetch(`http://localhost:5000/${url}`);
         const data = await response.json();
@@ -94,12 +111,12 @@ function App()
             
             const item = await postItems("cart_items",newCartItem);
             setCartItems([...cartItems,item]);
-            await updateCart(item);
         }
         else{
-            let{quantity} = shoeOnCart;
+            let{quantity,subtotal,shoe:{price}} = shoeOnCart;
             quantity ++;
-            let newCartItem = {...shoeOnCart,"quantity":quantity}
+            subtotal = price*quantity;
+            let newCartItem = {...shoeOnCart,"quantity":quantity,"subtotal":subtotal}
 
             //const item = await postItems("cart_items",newCartItem,"POST");
 
@@ -111,26 +128,13 @@ function App()
                 return cartItem;
             }));
 
-            await updateCart(newCartItem);
-
         }
     }
     const updateQuantity =async (_cartItem,_quantity)=>{
         let cartItem = {..._cartItem,"quantity":_quantity};
         const item = await postItems("cart_items",cartItem);
     }
-    const updateCart=async (newCartItem)=>{
-        let totalPrice = cartItems.reduce((acc,curr)=>acc+curr.subtotal,0)+newCartItem.subtotal;
-        let quantity = cartItems.reduce((acc,curr)=>acc+curr.quantity,0)+newCartItem.quantity;
-        
-        let newCart = {
-            ...cart,
-            "total":totalPrice,
-            "quantity":quantity
-        };
-        await postItems("cart",newCart);
-        setCart({...newCart});
-    }
+   
 
     const delCartItem=(id)=>{
         setCartItems(cartItems.filter((item)=>item.id != id))

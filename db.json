@@ -108,43 +108,7 @@
       "isOnSale": false
     }
   ],
-  "favourite": [
-    {
-      "id": 2,
-      "name": "fgj hdjh",
-      "originalPrice": 1900,
-      "discount": 0,
-      "price": 1900,
-      "quantity": 4,
-      "category": "Sneaker",
-      "fileName": "IMG-20220105-WA0005.jpg",
-      "description": "sdjsjj jdjjdj jjdhh jsjdjj du jjdu hjdjuj uhdjj uydhh jduu h",
-      "isOnSale": false
-    },
-    {
-      "id": 1,
-      "name": "abc defg",
-      "originalPrice": 2800,
-      "discount": 0,
-      "price": 2800,
-      "quantity": 4,
-      "category": "Formal",
-      "fileName": "IMG-20220105-WA0004.jpg",
-      "isOnSale": false
-    },
-    {
-      "id": 4,
-      "name": "pasd posdjp jiojoj",
-      "originalPrice": 1900,
-      "discount": 0,
-      "price": 1900,
-      "quantity": 4,
-      "category": "Boots",
-      "fileName": "IMG-20220105-WA0007.jpg",
-      "description": "sdjsjj jdjjdj jjdhh jsjdjj du jjdu hjdjuj uhdjj uydhh jduu h",
-      "isOnSale": false
-    }
-  ],
+  "favourite": [],
   "cart": {
     "total": 2800,
     "quantity": 1
@@ -165,7 +129,7 @@
       },
       "quantity": 1,
       "subtotal": 2800,
-      "id": 1
+      "id": 4
     }
   ]
 }
