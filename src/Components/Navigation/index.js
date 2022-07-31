@@ -2,7 +2,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import {FaBars,FaHome,FaUser,FaShoppingCart,FaComment,FaHeart,FaSearch} from "react-icons/fa";
 import { useState } from "react";
-const Navigation = ({currentUser,cart,favourite})=>{
+const Navigation = ({user,cart,favourite})=>{
     const[sideMenu,setSideMenu] = useState(false);
     return (
         <header>
@@ -26,7 +26,7 @@ const Navigation = ({currentUser,cart,favourite})=>{
                     </li>
                     <li className='authentication'>
                         <ul>
-                            {   currentUser.login?
+                            {   user.login?
                                 <li><Link className="menu-link" to="/logout">Logout</Link></li>:
                                 <>
                                     <li><Link className="menu-link" to="/login">Login</Link></li>
@@ -37,7 +37,7 @@ const Navigation = ({currentUser,cart,favourite})=>{
                     </li>
                 </ul>
             </nav>
-            <div className="search-container d-none">
+            <div className="search-container">
                 <div>
                     <input type="text" className="item-search-input focus-outline-none" placeholder="search here"/>
                     <button className="item-search-btn focus-outline-none"><FaSearch/></button>

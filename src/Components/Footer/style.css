@@ -2,17 +2,33 @@
 {
     background-color:white;
     overflow:hidden;
-    color:var(--theme-color);
 }
 .footer h3{
+    margin:0;
     font-size:1.125em;
-    padding: 1%;
+}
+.footer .social-link{
+    display:inline-block;
+    width:40px;
+    height:40px;
+    line-height:40px;
+    text-align: center;
+    background-color:var(--theme-color);
+    color:white;
+    padding:0;
+    border-radius:50%;
+    margin:1% 2%;
+}
+.footer a{
+    text-decoration: none;
+    color:var(--theme-color);
 }
 .footer ul{
     list-style: none;
     padding:0;
 }
-.copy-right{
-    text-align:center;
-    color:white;
+.footer .copy-right{
+    color:black;
+    font-weight:bold;
+    font-size: 0.6875em;
 }

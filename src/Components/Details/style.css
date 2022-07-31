@@ -1,16 +1,12 @@
+.details .shoe-name{
+    font-size:1.125em;
+    font-weight:bold;
+    text-align: left;
+    padding-left:2%;
+}
 .details{
     background-color: white;
     margin:0 2% 2% 2%;
-}
-.details h1{
-    font-size:1.25em;
-    margin-bottom:2%;
-    display: inline-block;
-    padding:2px;
-    color:var(--theme-color);
-    background-color:#f3f3f3;
-    border-bottom:2px dotted var(--theme-color);
-    border-bottom-right-radius:10px;
 }
 .details .btn-cart{
     border:1px solid silver;
@@ -19,26 +15,65 @@
     background-color: var(--theme-color);
     color:white;
 }
-.details img{
-    width:150px;
-    border-radius:5px;
+.details .btn-cart:hover{
+    box-shadow:2px 2px 2px silver;
+    border-color: grey;
 }
-.details .shoe-name{
+.details img{
+    max-width:300px;
+}
+.details .thumb-nail{
+    border:2px solid grey;
+    padding:2px;
+    display: inline-block;
+    margin:2%;
+}
+.details .selected{
+    border-color:var(--theme-color);
+}
+.details .thumb-nail img{
+    max-width:80px;
+}
+
+.details .sizes h4{
     font-size:1.125em;
-    font-weight:bold;
 }
 .details .size-container .size{
     display: inline-block;
-    width:30px;
-    height:30px;
-    line-height: 30px;
-    border-radius:50%;
-    background-color: #f3f3f3;
+    width:60px;
+    height:60px;
+    line-height: 60px;
     color:var(--theme-color);
     text-align: center;
     margin:1%;
-    border-bottom:2px dotted var(--theme-color);
+    border:2px solid grey;
     font-weight:bold;
+    position:relative;
+}
+.details .text-gold{
+    color:goldenrod;
+}
+.details .size-container .size-status{
+    position:absolute;
+    bottom:0;
+    left: 0;
+    height:16px;
+    width:100%;
+    line-height: 16px;
+    font-size: 0.5em;
+    display: block;
+    overflow:hidden;
+    background-color: white;
+    color:red;
+}
+.details .size-container .size:hover{
+   border-color:var(--theme-color);
+    cursor: pointer;
+}
+.details .size-container .selected{
+   border-color:var(--theme-color);
+   background-color: var(--theme-color);
+   color:white;
 }
 .details .description{
     background-color:rgba(245, 245, 245, 0.76);

@@ -1,43 +1,21 @@
 import "./style.css";
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaEnvelope } from "react-icons/fa";
-import { FaPhone } from "react-icons/fa";
+import { FaLinkedinIn,FaFacebook,FaInstagram,FaEnvelope,FaPhone,FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const Footer = ()=>{
     return (
-        <div className="row footer">
-            <div className="col-6 col-lg-4">
-                <div className="p-2">
-                    <h3>Social Networks</h3>
-                    <ul>
-                        <li><FaLinkedinIn className="text-blue"/> My-Eco</li>
-                        <li><FaFacebook className="text-blue"/> My-Eco</li>
-                        <li><FaInstagram/> My Eco4555</li>
-                    </ul>
-                </div>
+        <div className="footer text-center">
+            <div>
+                <h3 className="text-center">Follow us</h3>
+                <Link className="social-link" to=""><FaLinkedinIn/></Link>
+                <Link className="social-link" to=""><FaFacebook/></Link>
+                <Link className="social-link" to=""><FaInstagram/></Link>
+                <Link className="social-link" to=""><FaTwitter/></Link>
             </div>
-            <div className="col-6 col-lg-4">
-                <div className="p-2">
-                    <h3>Contact Details</h3>
-                    <ul>
-                        <li><FaEnvelope/> info@myeco.com</li>
-                        <li><FaPhone/> +27 52 546 8896</li>
-                    </ul>
-                </div>
+             <div>
+                <a href="mailto:info@myeco.com" target="_blank"><FaEnvelope/> info@myeco.com</a>
             </div>
-            <div className="col-12 col-lg-4">
-                <div className="p-2">
-                    <h3>Address</h3>
-                    <address>
-                            2275 Mazuks Street <br/>
-                            Amsteryes <br/>
-                            4856
-                    </address>
-               </div>
-            </div>
-            <div className="col-12 text-primary text-center">
-                copy right 2020 My-Eco
+            <div className="copy-right">
+                &copy;2020 My-Eco
             </div>
         </div>
     );

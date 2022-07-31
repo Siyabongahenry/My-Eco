@@ -1,6 +1,6 @@
 import "./style.css";
 import { FaLock } from "react-icons/fa";
-const Login =()=>{
+const Login =({user})=>{
     return (
     <div className="login">
         <h1>Login at My-Eco<span>.com</span></h1>

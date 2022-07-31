@@ -5,7 +5,7 @@ import { useState } from "react";
 const Cart =({cart,cartItems,delCartItem})=>{
     return (
             <div className="container-fluid cart">
-                <h1 className="text-center text-theme"><FaShoppingCart/></h1>
+                <h1 className="text-theme"> Shopping Cart <FaShoppingCart/></h1>
                 {
                   cartItems.length <= 0?
                     <div>
@@ -20,7 +20,7 @@ const Cart =({cart,cartItems,delCartItem})=>{
                                         <div className="overflow-hidden text-center">
                                             <FaEye className="float-start text-theme"/>
                                             <FaTrash className="float-end text-danger" onClick={()=>{delCartItem(item.id)}}/>
-                                            <span className="size">size: 0</span>
+                                            <span className="size">size: {item.size}</span>
                                         </div>
                                         <div className="text-center">
                                             <img src={`images/${item.shoe.fileName}`}/>

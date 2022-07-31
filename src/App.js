@@ -1,4 +1,4 @@
-import {useState,useEffect,createContext,useContext, Component} from "react";
+import {useState,useEffect} from "react";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import Footer from "./Components/Footer/index";
 import Store from "./Components/Store/index";
@@ -8,30 +8,65 @@ import Cart from "./Components/Cart/index";
 import Login from "./Components/Login/index";
 import Chat from "./Components/Chat";
 
+import {getShoes as getShoesFromDb,
+    getByCategory as getShoeByCategory,
+    getByPriceRange as getShoeByPriceRange
+} 
+from "./Data/Shoes/retrieve.shoes";
+
+import {getCart as getCartFromDb,
+    getCartItems as getCartItemsFromDb,
+    addCartItem as addCartItemToDb,
+    removeCartItem as rvCartItemFromDb,
+    addCartItem
+} 
+from "./Data/Cart/retrieve.cart";
+
 function App()
 {
-    const storeContext = createContext();
-    const[currentUser,setCurrentUser] = useState({
-        role:"admin",
-        login:true,
+    const[store,setStore] = useState({
+        "pages":4,
+        "itemsPerPage":4
+    });
+    const[user,setUser] = useState({
+        role:"user",
+        login:false,
         user:""
     });
     const[shoes,setShoes] = useState([]);
     const[cart,setCart] = useState({});
     const[cartItems,setCartItems] = useState([]);
 
+    const[favourite,setFavourite] =useState([]);
+
+
     useEffect(()=>{
-        const getShoes = async ()=>{
-            const rShoes = await fetchItems("shoes");
-            setShoes(rShoes);
+        const getShoes = ()=>{
+            getShoesFromDb(4)
+            .then((data)=>{
+                setShoes(data);
+            })
+            .catch((e)=>{
+                console.log(e);
+            });
         }
-        const getCart = async ()=>{
-            const rCart = await fetchItems("cart");
-            setCart(rCart);
+        const getCart = ()=>{
+            getCartFromDb()
+            .then((response)=>{
+                setCart(response);
+            })
+            .catch((e)=>{
+                console.log(e);
+            });
         }
-        const getCartItems = async ()=>{
-            const items = await fetchItems("cart_items");
-            setCartItems(items);
+        const getCartItems = ()=>{
+            getCartItemsFromDb()
+            .then((response)=>{
+                setCartItems(response);
+            })
+            .catch((e)=>{
+                console.log(e);
+            });
         }
         const getFavourite = async ()=>{
             const items = await fetchItems("favourite");
@@ -44,21 +79,17 @@ function App()
         getFavourite();
 
     },[]);
+    //update cart when cart items changes
     useEffect(()=>{
-        
-        const updateCart=async ()=>{
-            let totalPrice = cartItems.reduce((acc,curr)=>acc+curr.subtotal,0);
-            let quantity = cartItems.reduce((acc,curr)=>acc+curr.quantity,0);
-            
-            let newCart = {
-                ...cart,
-                "total":totalPrice,
-                "quantity":quantity
-            };
-            await postItems("cart",newCart);
-            setCart({...newCart});
+        const updateCart= ()=>{
+            getCartFromDb()
+            .then((response)=>{
+                setCart(response);
+            })
+            .catch((e)=>{
+                console.log(e);
+            });
         }
-
         updateCart();
     },[cartItems]);
     const fetchItems = async (url)=>{
@@ -81,78 +112,65 @@ function App()
         return data;
     }
     
-    const filterByCategory =async (category)=>{
-        let data =null;
-        if(category === "All")
-        {
-          data = await fetchItems("shoes");
-        }
-        else{
-          data = await fetchItems(`shoes?category=${category}`)
-        }
-        setShoes(data);  
+    const filterByCategory = (category)=>{
+        getShoeByCategory(category)
+        .then((response)=>{
+        setShoes(response);
+        }).catch((e)=>{
+            console.log(e);
+        });
     }
-    const filterByPrice =async (lowest,highest)=>{
-         let shoeList = await fetchItems("shoes");
-        setShoes(shoeList.filter(shoe=>shoe.price >= lowest && shoe.price < highest));
+    const filterByPrice =(lowest,highest)=>{
+         getShoeByPriceRange(lowest,highest)
+         .then((response)=>{
+            setShoes(response);
+         })
+         .catch((e)=>{
+            console.log(e);
+         });
     }
 
-
-    const addToCart =async (shoe)=>{
-        let shoeOnCart = cartItems.find(({shoe:{id}})=>id === shoe.id);
-        if(shoeOnCart === undefined)
-        {
-            let newCartItem = {
-                "cartId":0,
-                "shoe":shoe,
-                "quantity":1,
-                "subtotal":shoe.price
-            }
-            
-            const item = await postItems("cart_items",newCartItem);
-            setCartItems([...cartItems,item]);
-        }
-        else{
-            let{quantity,subtotal,shoe:{price}} = shoeOnCart;
-            quantity ++;
-            subtotal = price*quantity;
-            let newCartItem = {...shoeOnCart,"quantity":quantity,"subtotal":subtotal}
-
-            //const item = await postItems("cart_items",newCartItem,"POST");
-
-            setCartItems(cartItems.map((cartItem)=>{
-                if(cartItem.id == newCartItem.id)
-                {
-                    cartItem = newCartItem;
-                }
-                return cartItem;
-            }));
-
-        }
+    const filterByItems =(_total)=>{
+        getShoesFromDb(_total)
+        .then((response)=>{
+            setShoes(response);
+        })
+        .catch((e)=>{
+            console.log(e);
+        });
     }
-    const updateQuantity =async (_cartItem,_quantity)=>{
-        let cartItem = {..._cartItem,"quantity":_quantity};
-        const item = await postItems("cart_items",cartItem);
+    const addToCart =(_shoe,_size)=>{
+        addCartItemToDb(_shoe,_size).
+        then((response)=>{
+            setCartItems(response);
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
     }
-   
-
-    const delCartItem=(id)=>{
-        setCartItems(cartItems.filter((item)=>item.id != id))
+    const delCartItem=(_id)=>{
+        rvCartItemFromDb(_id)
+        .then((response)=>{
+            setCartItems(response);
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
     }
-    const[favourite,setFavourite] =useState([]);
 
     const addToFavourite= async (shoe)=>{
         const favItem = await postItems("favourite",shoe);
         setFavourite([...favourite,favItem]);
     }
     const store_props = {
-        "filterByPrice":filterByPrice,
-        "filterByCategory":filterByCategory,
         "shoes":shoes,
         "addToCart":addToCart,
         "cartItems":cartItems,
         "addToFavourite":addToFavourite,
-        "favourite":favourite
+        "favourite":favourite,
+        "filterByPrice":filterByPrice,
+        "filterByCategory":filterByCategory,
+        "filterByItems":filterByItems
     }
 
     const cart_props={
@@ -161,9 +179,10 @@ function App()
         "cartItems":cartItems
     }
     return (
+
         <Router>
             <div className="main-container">
-                <Navigation currentUser={currentUser} cart={cart} favourite={favourite}/> 
+                <Navigation user={user} cart={cart} favourite={favourite}/> 
                 <Routes>
                     <Route path="/"
                         element={
@@ -172,17 +191,17 @@ function App()
                     />    
                     <Route path="/details/:id"
                         element={
-                            <Details shoes={shoes}/>      
+                            <Details addToCart={addToCart}/>      
                         }
                     />    
-                     <Route path="/cart"
+                    <Route path="/cart"
                         element={
                             <Cart {...cart_props}/>
                         }
                     />   
-                     <Route path="/login"
+                    <Route path="/login"
                         element={
-                            <Login currentUser={currentUser}/>      
+                            <Login user={user}/>      
                         }
                     />    
                     <Route path="/chat"
@@ -195,6 +214,7 @@ function App()
                 <Footer/>
             </div>
         </Router>
+
     );
 }
 

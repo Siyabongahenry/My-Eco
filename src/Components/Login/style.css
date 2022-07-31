@@ -1,6 +1,6 @@
 .login{
-    width:40%;
-    margin:2% 30%;
+    width:90%;
+    margin:2% 5%;
     padding:2%;
     background-color: white;
     box-shadow: -2px -2px 2px silver, 2px 2px 2px silver;
@@ -21,4 +21,12 @@
     background-color: var(--theme-color);
     color:white;
     padding:0.125em 0.625em;
+}
+
+@media only screen and (min-width:900px)
+{
+    .login{
+        width:40%;
+        margin:2% 30%;
+    }
 }
