@@ -1,6 +1,6 @@
 import "./style.css";
 import { Link } from "react-router-dom";
-import { FaHeart, FaEye,FaShoppingCart,FaCheckDouble } from "react-icons/fa";
+import { FaHeart, FaEye,FaShoppingCart,FaCheckDouble,FaTimes } from "react-icons/fa";
 import { priceFormat } from "../../Services/Format/currency";
 import { discountFormat } from "../../Services/Format/percent";
 import { useState } from "react";
@@ -34,23 +34,24 @@ const Items = ({items,addToCart,addToFavourite,cartItems,favourite})=>{
                                     <span className="discount-tag">{shoe.discount>0 && discountFormat(shoe.discount,shoe.actualPrice)}</span>
                                 </div>
                                 <div className={`size-group ${sizeGroupId !== shoe.id && 'd-none'}`}>
+                                    <FaTimes className="text-danger bg-white" onClick={()=>{setSizeGroupId(-1)}}/>
                                     <h3>Choose your size</h3>
                                     <div>
                                         {
-                                            shoe.sizes.map(({size,quantity})=>
-                                            <span key={size} className="size" onClick={()=>{addToCart(shoe,size);setSizeGroupId(-1)}}>{size} 
+                                            shoe.sizes?.map(({size,quantity})=>
+                                            <span key={size} className="size" onClick={()=>{addToCart(shoe,parseInt(size));setSizeGroupId(-1)}}>{size} 
                                                 <span className="size-status text-white">
                                                     {
-                                                        quantity ===0 && <span className="bg-danger d-block">out of stock</span> || 
-                                                        quantity < 5 && <span className="bg-warning d-block">{`${quantity} remaining`}</span> ||
-                                                        <span className="bg-success d-block">In Stock</span>
+                                                        quantity ===0 && <span className="text-danger d-block">out of stock</span> || 
+                                                        quantity < 5 && <span className="text-warning d-block">{`${quantity} remaining`}</span> ||
+                                                        <span className="text-success d-block">In Stock</span>
                                                     }
                                                 </span>
                                             </span>
                                             )
                                         }
                                     </div>
-                                    <button className="btn btn-danger mt-2" onClick={()=>{setSizeGroupId(-1)}}>cancel</button>
+                                
                                 </div>
                                 <p className="img-container">
                                     <img src={`/images/${shoe.fileName}`}/>
