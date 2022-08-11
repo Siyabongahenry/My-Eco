@@ -126,15 +126,14 @@
     background-color: rgba(85, 38, 6, 0.151);
     border:2px solid white;
     padding:2%;
+    z-index: 1;
 }
 .store-item .size-group h3{
     padding: 1%;
-    margin: 2%;
     font-size:1em;
     background-color:white;
     color:var(--theme-color);
-    border-bottom:2px solid var(--theme-color);
-    border-radius:10px;
+    border-radius:5px;
 }
 .store-item 
 .size-group
@@ -148,15 +147,13 @@
     color:var(--theme-color);
     margin:1%;
     position:relative;
-    border-top:2px dotted var(--theme-color);
-    border-radius:10px;
     overflow: hidden;
     box-shadow:2px 2px 2px black;
 }
 .store-item 
 .size-group
 .size:hover{
-    background-color: var(--theme-color);
+    background-color: #f7890bc2;
     cursor: pointer;
     color: white;
     box-shadow: none;

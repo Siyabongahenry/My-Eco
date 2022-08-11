@@ -2,7 +2,7 @@ import "./style.css";
 import { useParams,Link } from "react-router-dom";
 import { priceFormat } from "../../Services/Format/currency";
 import {getShoe as getShoeFromDb} from "../../Data/Shoes/retrieve.shoes";
-import {FaInfoCircle, FaShoppingCart,FaStar} from "react-icons/fa";
+import {FaInfoCircle, FaShoppingCart} from "react-icons/fa";
 import { useState,useEffect } from "react";
 const Details = ({addToCart})=>{
     
@@ -32,7 +32,7 @@ const Details = ({addToCart})=>{
         shoe === null?<h3 className="text-center">Item not found</h3>:
         <>
             <div className="overflow-auto">
-                <button className="float-end btn-cart" onClick={()=>{addToCart(shoe)}}>+ <FaShoppingCart/></button>
+                <button className="float-end btn-cart" onClick={()=>{addToCart(shoe,selectedSize)}}>+ <FaShoppingCart/></button>
                 <h1 className="shoe-name">
                         {shoe.name}
                 </h1>

@@ -1,11 +1,11 @@
 import { add,cart,cartItems,remove } from "./db.cart";
 import { shoes } from "../Shoes/db.shoes";
-export const addCartItem = (_shoe)=> {
+export const addCartItem = (_shoe,_size)=> {
     const promise = new Promise((accept,reject)=>{
-        const shoeExistInStore = shoes.some(({id})=> id == _shoe.id);
+        const shoeExistInStore = shoes.some(({id})=> id === _shoe.id);
         if(shoeExistInStore)
         {
-            accept(add(_shoe));
+            accept(add(_shoe,_size));
         }
         else
         {
@@ -43,7 +43,7 @@ export const getCartItems =()=>{
 
 export const removeCartItem = (_id)=>{
     const promise = new Promise((accept,reject)=>{
-        let itemExist = cartItems.some(({id})=> id == _id);
+        let itemExist = cartItems.some(({id})=> id === _id);
         if(itemExist)
         {
             accept(remove(_id));

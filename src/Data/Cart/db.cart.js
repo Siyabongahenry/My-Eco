@@ -11,7 +11,7 @@ export const add = (_shoe,_size)=>{
     let cartItem = cartItems.find(({shoe:{id}})=>id === _shoe.id);
 
     //if the shoe does not exist add it as a new cartItem
-    if(cartItem === undefined)
+    if(cartItem === undefined || cartItem.size !== _size)
     {
         let cartItemId = cartItems.length ===0?0:cartItems[cartItems.length-1].id+1;
         cartItem = {
@@ -29,7 +29,7 @@ export const add = (_shoe,_size)=>{
         subtotal = price*quantity;
         cartItem = {...cartItem,"quantity":quantity,"subtotal":subtotal}
     }
-    cartItems = cartItems.filter(item => item.id != cartItem.id);
+    cartItems = cartItems.filter(item => item.id !== cartItem.id);
     cartItems.push(cartItem);
     updateCart();
     
@@ -47,7 +47,7 @@ const updateCart= ()=>{
 }
 
 export const remove = (_id)=>{
-   cartItems =  cartItems.filter(({id})=> id !== id);
+   cartItems =  cartItems.filter(({id})=> id !== _id);
    updateCart();
    return cartItems;
 }

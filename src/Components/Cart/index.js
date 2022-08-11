@@ -1,7 +1,7 @@
 import "./style.css";
-import { FaShoppingCart,FaArrowUp,FaArrowDown,FaTrash, FaEye } from "react-icons/fa";
+import { FaShoppingCart,FaArrowUp,FaArrowDown,FaTrash } from "react-icons/fa";
 import { priceFormat } from "../../Services/Format/currency";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 const Cart =({cart,cartItems,delCartItem})=>{
     return (
             <div className="container-fluid cart">
@@ -18,25 +18,25 @@ const Cart =({cart,cartItems,delCartItem})=>{
                                 <div key={item.id} className="col-12 col-lg-3">
                                     <div className="cart-item">
                                         <div className="overflow-hidden text-center">
-                                            <FaEye className="float-start text-theme"/>
+                                            <Link className="float-start btn-view" to={`/details/${item.shoe.id}`}>view</Link>
                                             <FaTrash className="float-end text-danger" onClick={()=>{delCartItem(item.id)}}/>
-                                            <span className="size">size: {item.size}</span>
+                                            <span className="size">SIZE {item.size}</span>
                                         </div>
                                         <div className="text-center">
-                                            <img src={`images/${item.shoe.fileName}`}/>
+                                            <img src={`images/${item.shoe?.fileName}`}/>
                                         </div>
                                         <p className="item-name text-center">
-                                            {item.shoe.name}
+                                            {item.shoe?.name}
                                         </p>
                                         <div >
                                             Quantity: <FaArrowDown className="text-theme"/><span className="quantity">{item.quantity}</span><FaArrowUp className="text-theme"/>
-                                            <button className="btn-save-changes">save changes</button>
+                                            <button className="btn-save-changes">save</button>
                                         </div>
                                         <p className="item-price">
-                                            { priceFormat(item.shoe.price)}
+                                            { priceFormat(item.shoe?.price)}
                                         </p>
                                         <p className="text-end">
-                                            <b className="text-theme">subtotal: { priceFormat(item.subtotal)}</b>
+                                            <b>subtotal: { priceFormat(item.subtotal)}</b>
                                         </p>
                                     </div>
                                 </div>

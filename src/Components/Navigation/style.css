@@ -36,30 +36,6 @@ nav .web-name{
 nav .web-name .domain{
     color:var(--theme-color);
 }
-.search-container{
-    width:100%;
-    height:30px;
-    display: none;
-}
-.search-container .item-search-input,
-.search-container .item-search-btn{
-    float: left;
-    height:30px;
-    line-height:30px;
-    border:none;
-    font-size:0.875em;
-}
-.search-container .item-search-input{
-    width:90vw;
-    border-right:none;
-}
-.search-container .item-search-btn{
-    width:10vw;
-    border-left:none;
-    text-align: center;
-    background-color: var(--theme-color);
-    color:white;
-}
 nav .side-nav{
     position:absolute;
     top:40px;
@@ -106,7 +82,33 @@ nav .counter{
     background-color:var(--theme-color);
     color:black;
 }
-
+.search-container{
+    position:fixed;
+    left: 0;
+    top:0;
+    width:100%;
+    height:30px;
+    display: none;
+}
+.search-container .item-search-input,
+.search-container .item-search-btn{
+    float: left;
+    height:30px;
+    line-height:30px;
+    border:none;
+    font-size:0.875em;
+}
+.search-container .item-search-input{
+    width:90vw;
+    border-right:none;
+}
+.search-container .item-search-btn{
+    width:10vw;
+    border-left:none;
+    text-align: center;
+    background-color: var(--theme-color);
+    color:white;
+}
 @media only screen and (min-width:900px){
     .for-mob{
         display: none;
@@ -121,8 +123,8 @@ nav .counter{
         position:relative;
         text-align: center;
         margin-top: 10px;
-        height:40px;
-        line-height:40px;
+        height:60px;
+        line-height:60px;
         overflow-y:hidden;
     }
     nav ul{
@@ -152,17 +154,23 @@ nav .counter{
     }
     nav .main-menu{
         width:70%;
+        line-height: inherit;
+        height: inherit;
     }
     nav .main-menu ul li{
         overflow: hidden;
-        min-width:60px;
+        min-width:70px;
         text-align: center;
+        line-height: inherit;
+        height: inherit;
     }
     nav .main-menu .menu-link,nav .authentication .menu-link{
-        line-height: inherit;
         display: block;
         text-decoration: none;
-        background-color:inherit;        
+        background-color:inherit;    
+        line-height: inherit;  
+        height: inherit;  
+        font-size: 1.125rem;
     }
     nav .main-menu  li:hover .menu-link{
         cursor: pointer;
@@ -171,12 +179,27 @@ nav .counter{
     nav .authentication{
         margin-right:2%;
     }
+    nav .authentication .menu-link{
+        display: inline-block;
+        background-color: var(--theme-color);
+        color:rgba(255, 255, 255, 0.87);
+        line-height: initial;
+        height: initial;
+        margin-left: 2%;
+        font-size: 1rem;
+        border-radius:25px;
+        border:2px solid silver;
+        padding: 5px;
+    }
     nav .authentication li:hover .menu-link{
         cursor: pointer;
-        color: blue;
+        background-color: white;
+        border-color: var(--theme-color);
+        color: var(--theme-color);
     }
     
     .search-container{
+        position:initial;
         text-align: center;
         height:40px;
         display:block;
