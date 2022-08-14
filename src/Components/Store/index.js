@@ -5,7 +5,7 @@ import Pages from "./pages";
 import CategoryFilter from "../Filters/category";
 import PriceFilter from "../Filters/price";
 import ItemsFilter from "../Filters/items";
-const Store = ({shoes,filterByCategory,filterByPrice,filterByItems,addToCart,addToFavourite,cartItems,favourite}) =>{
+const Store = ({shoes,filterByCategory,filterByPrice,filterByItems,addToCart,addToFav,cartItems,favourite,removeFromFav}) =>{
    
     return (
         <div className="store">
@@ -25,7 +25,7 @@ const Store = ({shoes,filterByCategory,filterByPrice,filterByItems,addToCart,add
                 </div>
                 <div className="col-12 col-lg-9">
                     {
-                        shoes.length > 0?<Items addToCart={addToCart} cartItems={cartItems} favourite={favourite} addToFavourite={addToFavourite} items={shoes}/>:<div className="text-center">Item not found</div>
+                        shoes.length > 0?<Items addToCart={addToCart} cartItems={cartItems} favourite={favourite} addToFav={addToFav} items={shoes} removeFromFav={removeFromFav}/>:<div className="text-center">Item not found</div>
                     }
                 </div>
                 <div className="col-12 col-lg-3"></div>

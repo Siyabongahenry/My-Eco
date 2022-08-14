@@ -4,19 +4,28 @@ import { FaHeart, FaEye,FaShoppingCart,FaCheckDouble,FaTimes } from "react-icons
 import { priceFormat } from "../../Services/Format/currency";
 import { discountFormat } from "../../Services/Format/percent";
 import { useState } from "react";
-const Items = ({items,addToCart,addToFavourite,cartItems,favourite})=>{
+const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
     //size group for a specific shoe with id equivalent to the shoe id
     const[sizeGroupId,setSizeGroupId] = useState(-1);
 
-    const shoeOnCart =(shoe)=>{
-            if(cartItems.some(({shoe:{id}})=>id===shoe.id))
+    const cartQuantity =(id)=>{
+            if(cartItems.some(({shoe:{id:shoeId}})=>shoeId===id))
             {
-                return cartItems.find(({shoe:{id}})=>id === shoe.id).quantity;
+                return cartItems.find(({shoe:{id:shoeId}})=>shoeId === id).quantity;
             }
             return "0";
     }
-    const IsOnFav = (shoe)=>{
-        return favourite.some(({id})=>id === shoe.id);
+    const IsOnFav = (id)=>{
+        return favourite.some(({id:favId})=>favId === id);
+    }
+    const handleFav=(shoe)=>{
+        if(IsOnFav(shoe.id))
+        {
+            removeFromFav(shoe.id);
+        }
+        else{
+            addToFav(shoe);
+        }
     }
     return (
         <div className="row">
@@ -27,9 +36,9 @@ const Items = ({items,addToCart,addToFavourite,cartItems,favourite})=>{
                             <div className="store-item">
                                 <div className="top-btn-group text-center">       
                                     <Link className="btn-view item-btn" to={`/details/${shoe.id}`}><FaEye /></Link>
-                                    <button className="btn-fav item-btn" onClick={()=>{addToFavourite(shoe)}}><FaHeart className={IsOnFav(shoe)?"on-fav":""} /><span className="counter">{IsOnFav(shoe)?<FaCheckDouble/>:""}</span></button>
+                                    <button className="btn-fav item-btn" onClick={()=>{handleFav(shoe)}}><FaHeart className={IsOnFav(shoe.id)?"on-fav":""} /><span className="counter">{IsOnFav(shoe.id)?<FaCheckDouble/>:""}</span></button>
                                     <button className="btn-cart item-btn" onClick={()=>{setSizeGroupId(shoe.id)}}>+<FaShoppingCart />
-                                        <span className="counter">{shoeOnCart(shoe)}</span>
+                                        <span className="counter">{cartQuantity(shoe.id)}</span>
                                     </button>     
                                     <span className="discount-tag">{shoe.discount>0 && discountFormat(shoe.discount,shoe.actualPrice)}</span>
                                 </div>

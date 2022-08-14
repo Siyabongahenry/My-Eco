@@ -5,11 +5,11 @@ import {getShoe as getShoeFromDb} from "../../Data/Shoes/retrieve.shoes";
 import {FaInfoCircle, FaShoppingCart} from "react-icons/fa";
 import { useState,useEffect } from "react";
 const Details = ({addToCart})=>{
-    
     const{id} = useParams();
     const[shoe,setShoe] = useState(null);
     const[fileName,setFileName] = useState("");
     const[selectedSize,setSelectedSize] = useState(0);
+    const[error,setError] = useState(null);
 
     useEffect( ()=>{
         const getShoe = ()=>{
@@ -20,7 +20,7 @@ const Details = ({addToCart})=>{
                 setSelectedSize(data.sizes[0].size);
             })
             .catch((e)=>{
-                console.log(e);
+                setError("Something went wrong");
             });
         }
         getShoe();
