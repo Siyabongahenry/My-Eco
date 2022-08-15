@@ -23,7 +23,7 @@ const Cart =({cart,cartItems,delCartItem})=>{
                                             <span className="size">SIZE {item.size}</span>
                                         </div>
                                         <div className="text-center">
-                                            <img src={`images/${item.shoe?.fileName}`}/>
+                                            <img src={process.env.PUBLIC_URL+`/images/${item.shoe?.fileName}`}/>
                                         </div>
                                         <p className="item-name text-center">
                                             {item.shoe?.name}

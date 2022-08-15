@@ -1,8 +1,12 @@
 import {shoes,addShoeToDb as addShoe} from "./db.shoes";
 
-export const getShoes = (count = null)=>{
+export const getShoes = (count = 100000,search_value = null)=>{
     const promise = new Promise((accept,reject)=>{
-        let shoesList =count === null?shoes:shoes.slice(0,count);
+        let shoesList =search_value ===null?shoes:
+        shoes.filter(({name,description})=>name.toLowerCase().search(search_value)>=0 || description.toLowerCase().search(search_value)>=0);
+
+        shoesList = shoesList.slice(0,count);
+
         if(shoesList === null)
         {
             reject();
@@ -40,9 +44,10 @@ export const getByCategory = (_category)=>{
     });
     return promise;
 }
-export const getByPriceRange = (lowest,highest)=>{
+export const getByPriceRange = (_lowest,_highest,_category)=>{
     const promise = new Promise((accept,reject)=>{
-        let shoesList = shoes.filter(({price})=> price >= lowest && price < highest);
+        let shoesList = _category ==="All"?shoes:shoes.filter(({category})=> category ===_category);
+        shoesList =  shoesList.filter(({price})=> price >= _lowest && price < _highest ).sort((a,b)=> a.price - b.price);
         if(shoesList.length > 0)
         {
             accept(shoesList);

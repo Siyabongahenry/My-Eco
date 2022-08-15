@@ -5,12 +5,11 @@ const Sales =()=>{
     return (
         <div className="sale-items">
             <h2 className="text-center">Monthly Sales</h2>
-            <p className="bg-white p-2 overflow-auto">
+            <p className="bg-white p-2">
                  Sign Up to get notified
                 <input className="user-email-input focus-outline-none" type="email" placeholder="email..."/>
                 <button className="btn-email-submit focus-outline-none">Submit</button>
-            </p>
-                
+            </p>     
         </div>
     );
 }

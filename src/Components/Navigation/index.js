@@ -2,10 +2,17 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import {FaBars,FaHome,FaUser,FaShoppingCart,FaComment,FaHeart,FaSearch} from "react-icons/fa";
 import { useState } from "react";
-const Navigation = ({user,cart,favourite})=>{
+const Navigation = ({user,cart,favourite,searchItem})=>{
     const[sideMenu,setSideMenu] = useState(false);
     const[navigation,setNavigation] = useState(true);
     const[mobSearch,setMobSearch] = useState("");
+    const[searchValue,setSearchValue]=useState("");
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        searchItem(searchValue.toLowerCase());
+        setNavigation(true);
+        setMobSearch("");
+    }
     return (
         <header>
             {
@@ -44,8 +51,10 @@ const Navigation = ({user,cart,favourite})=>{
             }
             <div className={`search-container ${mobSearch}`}>
                 <div>
-                    <input type="text" className="item-search-input focus-outline-none" placeholder="search here"/>
-                    <button className="item-search-btn focus-outline-none"><FaSearch/></button>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" className="item-search-input focus-outline-none" placeholder="search here" onChange={(e)=>{setSearchValue(e.target.value);}}/>
+                        <button className="item-search-btn focus-outline-none"><FaSearch/></button>
+                    </form>
                 </div>
             </div>
         </header>

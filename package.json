@@ -1,7 +1,7 @@
 {
   "name": "My-Eco",
   "version": "0.1.0",
-  "homepage":"https://siyabongahenry.github.io",
+  "homepage":"https://siyabongahenry.github.io/My-Eco/",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",

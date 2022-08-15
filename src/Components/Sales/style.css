@@ -1,5 +1,6 @@
 .sale-items{
     background-color: white;
+    overflow:hidden;
 }
 .sale-items h2{
     font-size: 1.125em;

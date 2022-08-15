@@ -40,12 +40,12 @@ const Details = ({addToCart})=>{
             <div className="row">
                 <div className="col-12 col-lg-6">
                     <div className="text-center">
-                        <img src={`/images/${fileName}`}/>
+                        <img src={process.env.PUBLIC_URL+`/images/${fileName}`}/>
                         <div className="thumb-nails">
                             {     
                                 shoe.files.map((file)=>
                                     <div key={file} className={`thumb-nail ${fileName == file && "selected"}`} onClick={()=>{setFileName(file)}}>
-                                        <img src={`/images/${file}`}/>
+                                        <img src={process.env.PUBLIC_URL+`/images/${file}`}/>
                                     </div>
                                 )
                                 

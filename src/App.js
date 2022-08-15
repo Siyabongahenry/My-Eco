@@ -42,6 +42,8 @@ function App()
 
     const[favourite,setFavourite] =useState([]);
 
+    const[category,setCategory] = useState("All");
+    const[sortAsc,setSortAsc] = useState(false);
     useEffect(()=>{
         getShoes();
         getCart();
@@ -61,6 +63,13 @@ function App()
         updateCart();
     },[cartItems]);
 
+    const searchItem = (value)=>{
+        getShoesFromDb(4,value)
+        .then(setShoes)
+        .catch((e)=>{
+            console.log(e);
+        });
+    }
     const getShoes = ()=>{
         getShoesFromDb(4)
         .then(setShoes)
@@ -83,15 +92,26 @@ function App()
         });
     }
     
-    const filterByCategory = (category)=>{
-        getShoeByCategory(category)
-        .then(setShoes)
+    const filterByCategory = (_category)=>{
+        getShoeByCategory(_category)
+        .then((response)=>{
+            if(sortAsc)
+            {
+                setShoes(response.sort((a,b)=>a.price-b.price));
+            }
+            else{
+                setShoes(response);
+            }
+            setCategory(_category);
+        })
         .catch((e)=>{
             console.log(e);
         });
     }
     const filterByPrice =(lowest,highest)=>{
-         getShoeByPriceRange(lowest,highest)
+        setSortAsc(true);
+        console.log(category);
+         getShoeByPriceRange(lowest,highest,category)
          .then(setShoes)
          .catch((e)=>{
             console.log(e);
@@ -155,7 +175,8 @@ function App()
         "removeFromFav":removeFromFav,
         "filterByPrice":filterByPrice,
         "filterByCategory":filterByCategory,
-        "filterByItems":filterByItems
+        "filterByItems":filterByItems,
+        "searchItem":searchItem
     }
     const cart_props={
         "delCartItem":delCartItem,
@@ -166,7 +187,7 @@ function App()
         <UserContext.Provider value={user}>
             <Router>
                 <div className="main-container">
-                    <Navigation user={user} cart={cart} favourite={favourite}/> 
+                    <Navigation user={user} cart={cart} favourite={favourite} searchItem ={searchItem}/> 
                     <Routes>
                         <Route path="/"
                             element={

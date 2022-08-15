@@ -32,7 +32,7 @@ const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
             {
                 items.map(
                     (shoe)=>
-                        <div className="col-6 col-md-4 p-2" key={shoe.id}>
+                        <div className="col-12 col-md-4 p-2" key={shoe.id}>
                             <div className="store-item">
                                 <div className="top-btn-group text-center">       
                                     <Link className="btn-view item-btn" to={`/details/${shoe.id}`}><FaEye /></Link>
@@ -63,7 +63,7 @@ const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
                                 
                                 </div>
                                 <p className="img-container">
-                                    <img src={`/images/${shoe.fileName}`}/>
+                                    <img src={process.env.PUBLIC_URL+`/images/${shoe.fileName}`}/>
                                 </p>
                                 <p className="name">{shoe.name}</p>
                                 <p className="quantity-status">{shoe.quantity > 0?"IN STOCK":"OUT OF STOCK"}</p>

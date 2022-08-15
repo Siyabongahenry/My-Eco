@@ -1,5 +1,5 @@
 :root{
-  --theme-color:rgb(250, 118, 42);
+  --theme-color:rgb(250, 73, 42);
   --pref-border-radius:25px;
 }
 *{
@@ -14,9 +14,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color:#f3f3f3;
+  font-size:1.125em;
 }
 .main-container{
-  margin-top:30px;
+  margin-top:80px;
   overflow-x: hidden;
 }
 .focus-outline-none:focus{
@@ -26,6 +27,9 @@ body {
   color:var(--theme-color);
 }
 @media only screen and (min-width:900px){
+  body{
+    font-size:1rem;
+  }
   .main-container{
     margin-top:0;
   }
