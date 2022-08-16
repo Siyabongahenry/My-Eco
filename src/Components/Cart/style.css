@@ -90,10 +90,13 @@
     padding:2%;
 }
 .cart .btn-checkout{
+    display: inline-block;
     background-color: green;
     color:white;
     width:100%;
     padding: 0.125em;
     border-color: silver;
     border-radius: var(--pref-border-radius);
+    text-decoration: none;
+    text-align: center;
 }

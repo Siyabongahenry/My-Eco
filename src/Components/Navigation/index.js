@@ -2,7 +2,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import {FaBars,FaHome,FaUser,FaShoppingCart,FaComment,FaHeart,FaSearch} from "react-icons/fa";
 import { useState } from "react";
-const Navigation = ({user,cart,favourite,searchItem})=>{
+const Navigation = ({user,cart,favourite,searchItem,userLogOut})=>{
     const[sideMenu,setSideMenu] = useState(false);
     const[navigation,setNavigation] = useState(true);
     const[mobSearch,setMobSearch] = useState("");
@@ -26,21 +26,20 @@ const Navigation = ({user,cart,favourite,searchItem})=>{
                     <ul className={`side-nav ${sideMenu?"d-none":""}`}>
                         <li className='main-menu'>
                             <ul > 
-                                <li><Link className="menu-link" to="/"><FaHome/></Link></li>
+                                <li><Link className="menu-link" to="/My-Eco/"><FaHome/></Link></li>
                                 <li><Link className="menu-link" to="/profile"><FaUser/></Link></li>
-                                <li><Link className="menu-link" to="/favourites"><FaHeart/><span className="counter">{favourite.length}</span></Link></li> 
+                                <li><Link className="menu-link" to="/favourite"><FaHeart/><span className="counter">{favourite.length}</span></Link></li> 
                                 <li><Link className="menu-link" to="/cart"><FaShoppingCart/><span className="counter">{cart.quantity}</span></Link></li>
                                 <li><Link className="menu-link" to="/chat"><FaComment/><span className="counter">0</span></Link></li>
                                 <li><Link className="menu-link" to="/order">Order</Link></li>
-                                <li><Link className="menu-link" to="/sell">Sell</Link></li>
                             </ul>
                         </li>
                         <li className='authentication'>
                             <ul>
                                 {   user.login?
-                                    <li><Link className="menu-link" to="/logout">Logout</Link></li>:
+                                    <li><Link className="menu-link" to="/logout" >Logout</Link></li>:
                                     <>
-                                        <li><Link className="menu-link" to="/login">Login</Link></li>
+                                        <li><Link className="menu-link" to="/login/My-Eco">Login</Link></li>
                                         <li><Link className="menu-link" to="/register">Register</Link></li>
                                     </>
                                 }

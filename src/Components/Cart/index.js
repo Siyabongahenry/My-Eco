@@ -53,7 +53,7 @@ const Cart =({cart,cartItems,delCartItem})=>{
                                     Total price: <b>{priceFormat(cart.total)}</b>
                                 </p>
                                 <div>
-                                    <button className="btn-checkout">Proceed to Checkout</button>
+                                    <Link className="btn-checkout" to="/payment">Proceed to Checkout</Link>
                                 </div>
                             </div>
                         </div>

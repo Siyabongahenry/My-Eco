@@ -6,7 +6,12 @@ import Details from "./Components/Details";
 import Navigation from "./Components/Navigation/index";
 import Cart from "./Components/Cart/index";
 import Login from "./Components/Login/index";
+import Logout from "./Components/Logout";
 import Chat from "./Components/Chat";
+import Favourite from "./Components/Favourite";
+import Profile from "./Components/Profile";
+import Order from "./Components/Order";
+import Payment from "./Components/Payment";
 import {getShoes as getShoesFromDb,
     getByCategory as getShoeByCategory,
     getByPriceRange as getShoeByPriceRange
@@ -34,7 +39,14 @@ function App()
     const[user,setUser] = useState({
         role:"user",
         login:false,
-        user:""
+        details:{
+            "firstName":"My-Eco",
+            "lastName":"User",
+            "email":"user@myeco.com",
+            "password":"2022*MyEco",
+            "address":"365 Earth",
+            "cellNo":"+27 61 456 8926"
+        }
     });
     const[shoes,setShoes] = useState([]);
     const[cart,setCart] = useState({});
@@ -63,6 +75,17 @@ function App()
         updateCart();
     },[cartItems]);
 
+    const userLogin =(_email,_password)=>{
+        if(_email === user.details.email && _password === user.details.password)
+        {
+            setUser({...user,"login":true});
+            return true;
+        }
+        return false;
+    }
+    const userLogout = ()=>{
+        setUser({...user,"login":false});
+    }
     const searchItem = (value)=>{
         getShoesFromDb(4,value)
         .then(setShoes)
@@ -189,7 +212,7 @@ function App()
                 <div className="main-container">
                     <Navigation user={user} cart={cart} favourite={favourite} searchItem ={searchItem}/> 
                     <Routes>
-                        <Route path="/"
+                        <Route path="/My-Eco/"
                             element={
                                 <Store {...store_props}/>     
                             }
@@ -204,9 +227,35 @@ function App()
                                 <Cart {...cart_props}/>
                             }
                         />   
-                        <Route path="/login"
+                        <Route path="/favourite"
                             element={
-                                <Login user={user}/>      
+                                <Favourite shoes={favourite} removeFromFav={removeFromFav} addToCart={addToCart}/>      
+                            }
+                        />    
+                        <Route path="/profile"
+                            element={
+                                <Profile user={user}/>      
+                            }
+                        />   
+                       
+                        <Route path="/order"
+                            element={
+                                <Order/>      
+                            }
+                        />     
+                         <Route path="/payment"
+                            element={
+                                <Payment total={cart.total}/>      
+                            }
+                        />     
+                        <Route path="/login/:returnUrl"
+                            element={
+                                <Login userLogin={userLogin}/>      
+                            }
+                        />    
+                        <Route path="/logout"
+                            element={
+                                <Logout userLogout={userLogout}/>      
                             }
                         />    
                         <Route path="/chat"

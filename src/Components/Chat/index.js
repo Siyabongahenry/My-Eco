@@ -90,6 +90,7 @@ const Chat = ()=>{
     }
     return (
         <div className="container">
+            <small className="text-danger">This chatbot is under construction</small>
             <div className="chat-screen">
                 <div className="chat-nav">
                     <FaRobot className="robot-head"/>

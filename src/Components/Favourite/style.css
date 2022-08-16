@@ -1,0 +1,17 @@
+.fav-container{
+    padding:2%;
+}
+.fav-container h1{
+    font-size:1.25em;
+}
+.fav-item{
+    background-color: white;
+    margin:2%;
+    padding:2%;
+}
+.fav-item .btn-cart{
+    color:var(--theme-color);
+}
+.fav-item img{
+    max-width:120px;
+}

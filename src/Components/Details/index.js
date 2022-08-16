@@ -103,7 +103,7 @@ const Details = ({addToCart})=>{
                 </div>
                 <div className="col-12 col-lg-6 text-center">
                     <div className="text-center p-2">
-                        <Link to="/" className="btn btn-primary"> Back To Shopping</Link>
+                        <Link to="/My-Eco/" className="btn btn-primary"> Back To Shopping</Link>
                     </div>
                 </div>
             </div>
