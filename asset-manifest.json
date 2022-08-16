@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/My-Eco/static/css/main.572cfbf7.css",
-    "main.js": "/My-Eco/static/js/main.8ebadf0d.js",
+    "main.js": "/My-Eco/static/js/main.f8995428.js",
     "static/js/787.fb8f49c4.chunk.js": "/My-Eco/static/js/787.fb8f49c4.chunk.js",
     "index.html": "/My-Eco/index.html",
     "main.572cfbf7.css.map": "/My-Eco/static/css/main.572cfbf7.css.map",
-    "main.8ebadf0d.js.map": "/My-Eco/static/js/main.8ebadf0d.js.map",
+    "main.f8995428.js.map": "/My-Eco/static/js/main.f8995428.js.map",
     "787.fb8f49c4.chunk.js.map": "/My-Eco/static/js/787.fb8f49c4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.572cfbf7.css",
-    "static/js/main.8ebadf0d.js"
+    "static/js/main.f8995428.js"
   ]
 }
