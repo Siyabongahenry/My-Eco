@@ -1,0 +1,19 @@
+.register-container h1{
+ font-size:1.25em;
+ color:var(--theme-color);
+}
+.register-container h1 span{
+    color:black;
+}
+
+.input-container{
+    width:100%;
+    padding:1%;
+}
+
+@media only screen and (min-width:900px) {
+   .register-container{
+       width:50%;
+       margin-left:25%;
+   }
+}

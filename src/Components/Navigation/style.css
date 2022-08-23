@@ -40,13 +40,13 @@ nav .web-name .domain{
 }
 nav .side-nav{
     position:absolute;
-    top:60px;
-    left:10px;
-    width:100px;
+    top:50px;
+    left:0;
+    width:120px;
     overflow-x:0;
     background-color:white;
     overflow-y: scroll;
-    height:60vh;
+    height:calc(100vh - 54px);
     box-shadow:-2px -2px 2px silver,2px 2px 2px silver;
 }
 nav .menu-link{
@@ -227,8 +227,7 @@ nav .counter{
        
     }
     .search-container .item-search-btn:hover{
-        background-color: black;
-        color:white;
+        background-color: #f0e4ddef;
     }
     .search-container .item-search-input,
     .search-container .item-search-btn{

@@ -1,22 +1,15 @@
 import "./style.css";
 import Items from "../Items/index";
 import Sales from "../Sales/index";
-import Pages from "./pages";
 import CategoryFilter from "../Filters/category";
 import PriceFilter from "../Filters/price";
-import ItemsFilter from "../Filters/items";
-const Store = ({shoes,filterByCategory,filterByPrice,filterByItems,addToCart,addToFav,cartItems,favourite,removeFromFav}) =>{
+import { FaCaretDown } from "react-icons/fa";
+const Store = ({shoes,getMoreShoes,filterByCategory,filterByPrice,filterByItems,addToCart,addToFav,cartItems,favourite,removeFromFav}) =>{
    
     return (
         <div className="store">
-            <div className="row">
-            <div className="col-12 col-lg-3"></div>
-                <div className="col-12 col-lg-4">
-                    <CategoryFilter filterByCategory={filterByCategory}/>
-                </div>
-                <div className="col-12 col-lg-4">
-                    <ItemsFilter filterByItems={filterByItems}/>
-                </div>
+            <div className="text-center">
+                <CategoryFilter filterByCategory={filterByCategory}/>
             </div>
             <div className="row">
                 <div className="filters col-12 col-lg-3">
@@ -27,11 +20,11 @@ const Store = ({shoes,filterByCategory,filterByPrice,filterByItems,addToCart,add
                     {
                         shoes.length > 0?<Items addToCart={addToCart} cartItems={cartItems} favourite={favourite} addToFav={addToFav} items={shoes} removeFromFav={removeFromFav}/>:<div className="text-center">Item not found</div>
                     }
+                    <div className="text-center">
+                        <button className="btn-show-more focus-outline-none" onClick={getMoreShoes}>show more <FaCaretDown/></button>
+                    </div>
                 </div>
                 <div className="col-12 col-lg-3"></div>
-                <div className="col-12 col-lg-9">
-                    <Pages/>
-                </div>
             </div>
         </div>
     );

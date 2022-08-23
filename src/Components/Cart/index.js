@@ -2,14 +2,18 @@ import "./style.css";
 import { FaShoppingCart,FaArrowUp,FaArrowDown,FaTrash } from "react-icons/fa";
 import { priceFormat } from "../../Services/Format/currency";
 import { Link } from "react-router-dom";
+import emptyCart from "./empty-cart.svg";
+import card from "./card.png";
+import onlinePayment from "./online.png";
 const Cart =({cart,cartItems,delCartItem})=>{
     return (
             <div className="container-fluid cart">
                 <h1 className="text-theme"> Shopping Cart <FaShoppingCart/></h1>
                 {
                   cartItems.length <= 0?
-                    <div>
-                        <b>You have nothing in your cart..</b>
+                    <div  className="text-center">
+                        <b>You have nothing in your cart..</b><br/> 
+                        <img src={emptyCart} alt="empty-cart "/> 
                     </div>:
                     <div className="row">
                         {
@@ -46,15 +50,23 @@ const Cart =({cart,cartItems,delCartItem})=>{
                         <div className="col-12 col-lg-6">
                             <div className="m-2 cart-summary">
                                 <h2>Summary</h2>
-                                <p>
-                                    Total items: <span className="badge bg-info text-white">{cart.quantity}</span>
-                                </p>
-                                <p>
-                                    Total price: <b>{priceFormat(cart.total)}</b>
-                                </p>
+                                <div className="row">
+                                    <div className="text-center col-12 col-md-4">
+                                        <img src={onlinePayment} width="100px" alt="secured"/>
+                                    </div>
+                                    <div className=" col-12 col-md-8">
+                                        <p>
+                                            Total items: <span className="badge bg-info text-white">{cart.quantity}</span>
+                                        </p>
+                                        <p>
+                                            Total price: <b>{priceFormat(cart.total)}</b>
+                                        </p>
+                                    </div>
+                                </div>
                                 <div>
                                     <Link className="btn-checkout" to="/payment">Proceed to Checkout</Link>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

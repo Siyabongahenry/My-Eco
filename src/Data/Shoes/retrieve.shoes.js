@@ -2,10 +2,11 @@ import {shoes,addShoeToDb as addShoe} from "./db.shoes";
 
 export const getShoes = (count = 100000,search_value = null)=>{
     const promise = new Promise((accept,reject)=>{
-        let shoesList =search_value ===null?shoes:
-        shoes.filter(({name,description})=>name.toLowerCase().search(search_value)>=0 || description.toLowerCase().search(search_value)>=0);
+        let shoesList =search_value ===null?[...shoes]:
+        shoes.filter(({name,description})=>name.toLowerCase()
+        .search(search_value)>=0 || description.toLowerCase().search(search_value)>=0);
 
-        shoesList = shoesList.slice(0,count);
+         shoesList = shoesList.splice(0,count);
 
         if(shoesList === null)
         {
@@ -17,7 +18,20 @@ export const getShoes = (count = 100000,search_value = null)=>{
     });
     return promise;
 }
-
+export const getMore = (_skip,_category,_items=3)=>{
+    const promise = new Promise((accept,reject)=>{
+        let shoeList = _category ==="All"?[...shoes].splice(_skip,_items):
+        shoes.filter(({category})=> category === _category).splice(_skip,_items);
+        if(shoeList.length > 0)
+        {
+            accept(shoeList);
+        }
+        else{
+            reject("shoes not found");
+        }
+    });
+    return promise;
+}
 export const getShoe = (_id)=>{
     const promise = new Promise((accept,reject)=>{
         let shoe = shoes.find(({id})=> id.toString() === _id);
@@ -31,9 +45,9 @@ export const getShoe = (_id)=>{
     });
     return promise;
 }
-export const getByCategory = (_category)=>{
+export const getByCategory = (_category,count)=>{
     const promise = new Promise((accept,reject)=>{
-        let shoesList = _category ==="All"?shoes:shoes.filter(({category})=> category === _category);
+        let shoesList = _category ==="All"?[...shoes].splice(0,count):shoes.filter(({category})=> category === _category);
         if(shoesList.length > 0)
         {
             accept(shoesList);
@@ -58,6 +72,7 @@ export const getByPriceRange = (_lowest,_highest,_category)=>{
     });
     return promise;
 }
+
 export const addShoeToDb = (shoe)=>{
     const promise = new Promise((accept,reject)=>{
         if(shoe === null)

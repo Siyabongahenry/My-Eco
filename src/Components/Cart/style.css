@@ -14,8 +14,6 @@
     background-color: white;
     margin:2%;
     padding:2%;
-    box-shadow:2px 2px 2px silver;
-    border-top: 1px solid silver;
 }
 .cart-item .btn-view{
     background-color:var(--theme-color);

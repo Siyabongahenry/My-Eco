@@ -12,7 +12,9 @@ import Favourite from "./Components/Favourite";
 import Profile from "./Components/Profile";
 import Order from "./Components/Order";
 import Payment from "./Components/Payment";
+import Register from "./Components/Register";
 import {getShoes as getShoesFromDb,
+    getMore as getMoreShoesFromDb,
     getByCategory as getShoeByCategory,
     getByPriceRange as getShoeByPriceRange
 } from "./Data/Shoes/retrieve.shoes";
@@ -28,14 +30,16 @@ import {get as getFavFromDb,
  count as countFavItems
 } from "./Data/Favourite/retrieve.favourites";
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 function App()
 {
+
     const[store,setStore] = useState({
-        "pages":4,
-        "itemsPerPage":4
-    });
+        items:24,
+        displayItems:3,
+        category:"All",
+    })
     const[user,setUser] = useState({
         role:"user",
         login:false,
@@ -53,8 +57,6 @@ function App()
     const[cartItems,setCartItems] = useState([]);
 
     const[favourite,setFavourite] =useState([]);
-
-    const[category,setCategory] = useState("All");
     const[sortAsc,setSortAsc] = useState(false);
     useEffect(()=>{
         getShoes();
@@ -83,22 +85,36 @@ function App()
         }
         return false;
     }
+    const registerUser = (_details)=>{
+        console.log(_details);
+        setUser({...user,details:{..._details}});
+    }
     const userLogout = ()=>{
         setUser({...user,"login":false});
     }
     const searchItem = (value)=>{
-        getShoesFromDb(4,value)
+        getShoesFromDb(store.displayItems,value)
         .then(setShoes)
         .catch((e)=>{
             console.log(e);
         });
     }
     const getShoes = ()=>{
-        getShoesFromDb(4)
+        getShoesFromDb(store.displayItems)
         .then(setShoes)
         .catch((e)=>{
             console.log(e);
         });
+    }
+    const getMoreShoes =()=>{
+        getMoreShoesFromDb(store.displayItems,store.category)
+        .then((response)=>{
+            setShoes([...shoes,...response]);
+            setStore({...store,displayItems:store.displayItems+response.length});
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
     }
     const getCart = ()=>{
         getCartFromDb()
@@ -116,7 +132,7 @@ function App()
     }
     
     const filterByCategory = (_category)=>{
-        getShoeByCategory(_category)
+        getShoeByCategory(_category,store.displayItems)
         .then((response)=>{
             if(sortAsc)
             {
@@ -125,7 +141,7 @@ function App()
             else{
                 setShoes(response);
             }
-            setCategory(_category);
+            setStore({...store,category:_category,displayItems:response.length});
         })
         .catch((e)=>{
             console.log(e);
@@ -133,20 +149,11 @@ function App()
     }
     const filterByPrice =(lowest,highest)=>{
         setSortAsc(true);
-        console.log(category);
-         getShoeByPriceRange(lowest,highest,category)
+         getShoeByPriceRange(lowest,highest,store.category)
          .then(setShoes)
          .catch((e)=>{
             console.log(e);
          });
-    }
-
-    const filterByItems =(_total)=>{
-        getShoesFromDb(_total)
-        .then(setShoes)
-        .catch((e)=>{
-            console.log(e);
-        });
     }
     const addToCart =(_shoe,_size)=>{
         addCartItemToDb(_shoe,_size).
@@ -189,16 +196,17 @@ function App()
             console.log(e);
         });
     }
+    
     const store_props = {
         shoes,
         cartItems,
         favourite,
+        "getMoreShoes":getMoreShoes,
         "addToCart":addToCart,
         "addToFav":addToFav,
         "removeFromFav":removeFromFav,
         "filterByPrice":filterByPrice,
         "filterByCategory":filterByCategory,
-        "filterByItems":filterByItems,
         "searchItem":searchItem
     }
     const cart_props={
@@ -247,7 +255,12 @@ function App()
                             element={
                                 <Payment total={cart.total}/>      
                             }
-                        />     
+                        />    
+                        <Route path="/register"
+                            element={
+                                <Register registerUser={registerUser}/>      
+                            }
+                        />      
                         <Route path="/login/:returnUrl"
                             element={
                                 <Login userLogin={userLogin}/>      

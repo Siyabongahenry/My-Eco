@@ -1,12 +1,12 @@
 import "./style.css";
 import { priceFormat } from "../../Services/Format/currency";
-import { FaTrash,FaShoppingCart } from "react-icons/fa";
+import { FaTrash,FaShoppingCart,FaHeart } from "react-icons/fa";
 const Favourite =({shoes,removeFromFav,addToCart})=>{
     return (
         <div className="fav-container">
-            <h1>Favourite</h1>
+            <h1><FaHeart className="text-danger"/> Favourite</h1>
              {
-                shoes.length === 0?"You have nothing in your favourite":
+                shoes.length === 0?<p className="text-center">You have 0 items in your favourite..</p>:
                 <div className="row">
                     {
                         shoes.map((shoe)=>

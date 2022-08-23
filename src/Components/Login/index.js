@@ -1,4 +1,5 @@
 import "./style.css";
+import lock from "./lock.png";
 import { FaLock } from "react-icons/fa";
 import { useParams,useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -8,10 +9,17 @@ const Login =({userLogin})=>{
     const[email,setEmail] = useState("");
     const[password,setPassword] = useState("");
     const[error,setError] = useState("");
+    const [userInput,setUserInput] = useState({
+        "email":"",
+        "password":""
+    });
+    const handleChange = (e)=>{
+        setUserInput({...userInput,[e.target.name]:e.target.value});
+    }
     const handleSubmit =(e)=>{
-        console.log(email+" + "+password);
+        console.log(userInput.email+" + "+userInput.password);
         e.preventDefault();
-        if(!userLogin(email,password))
+        if(!userLogin(userInput.email,userInput.password))
         {
             setError("The provided user name or password is invalid");
         }
@@ -22,14 +30,17 @@ const Login =({userLogin})=>{
     return (
     <div className="login">
         <h1>Login at My-Eco<span>.com</span></h1>
+        <div className="text-center">
+            <img src={lock} width="60px" alt="lock"/>
+        </div>
         <form onSubmit={handleSubmit}>
             <div>
                 <small>Email</small>
-                <input type="email" className="form-control" placeholder="type email.." onChange={(e)=>{setEmail(e.target.value)}}/>
+                <input type="email" name="email" className="form-control" placeholder="type email.." onChange={handleChange}/>
             </div>
             <div>
                 <small><FaLock/>Password</small>
-                <input type="password" className="form-control" placeholder="type password.." onChange={(e)=>{setPassword(e.target.value)}}/>
+                <input type="password" name="password" className="form-control" placeholder="type password.." onChange={handleChange}/>
             </div>
             <div className="text-danger p-2">
                 <small>{error}</small>

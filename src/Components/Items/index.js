@@ -11,7 +11,9 @@ const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
     const cartQuantity =(id)=>{
             if(cartItems.some(({shoe:{id:shoeId}})=>shoeId===id))
             {
-                return cartItems.find(({shoe:{id:shoeId}})=>shoeId === id).quantity;
+                let count = cartItems.filter(({shoe:{id:shoeId}})=>shoeId ===id)
+                .reduce((acc,curr)=>acc + curr.quantity,0);
+                return count;
             }
             return "0";
     }
