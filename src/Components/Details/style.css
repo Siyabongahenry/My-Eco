@@ -18,6 +18,19 @@
 .details .btn-cart:hover{
     box-shadow:2px 2px 2px silver;
     border-color: grey;
+    background-color: var(--theme-sec-color);
+}
+.details .cart-link{
+    border:1px solid silver;
+    display: inline-block;
+    border-radius:5px;
+    padding:2%;
+    color:var(--theme-sec-color);
+}
+.details .cart-link button{
+    background-color: transparent;
+    color:red;
+    border-color: red;
 }
 .details img{
     max-width:300px;
@@ -50,9 +63,6 @@
     font-weight:bold;
     position:relative;
 }
-.details .text-gold{
-    color:goldenrod;
-}
 .details .size-container .size-status{
     position:absolute;
     bottom:0;
@@ -71,7 +81,7 @@
     cursor: pointer;
 }
 .details .size-container .selected{
-   border-color:var(--theme-color);
+   border-color:var(--theme-sec-color);
    background-color: var(--theme-color);
    color:white;
 }

@@ -1,5 +1,6 @@
 :root{
-  --theme-color:rgb(250, 73, 42);
+  --theme-color:rgb(3, 3, 3);
+  --theme-sec-color:mediumvioletred;
   --pref-border-radius:25px;
 }
 *{

@@ -97,7 +97,7 @@
 }
 .chat-input{
     border-radius:10px;
-    width:90%;
+    width:80%;
     border:1px solid silver;
     padding-left:10px;
     font-size:0.875em;
@@ -146,6 +146,7 @@
 }
 @media only screen and (min-width:900px) {
     .chat-screen{
-        width:50vw;
+        width:70vw;
+        margin-left: 15vw;
     }
 }

@@ -3,31 +3,31 @@ import { FaCheckDouble,FaPaperPlane,FaRobot } from "react-icons/fa";
 import { useState,useEffect, useRef } from "react";
 const Chat = ()=>{
     const chatBodyRef = useRef(null);
+    const[message,setMessage] = useState("");
+    const[chats,setChats] = useState([{
+        "id":6,
+        "userId":1,
+        "message":"",
+        "time":"",
+        "date":"",
+        "senderId":23,
+        "receiverId":25
+    }]);
 
-    const[botTrigger,setBotTrigger] = useState(false);
+    useEffect(()=>{
 
-    const[chats,setChats] = useState([
-        {
+        setChats( [{
             "id":1,
             "message":"How would you like us to help you?\n"+
             "1. Order queries\n"+
             "2. Cart queries\n"+
             "3: Favourite queries\n"+
             "4. Shoe queries",
-            "time":"12:45",
-            "date":"2021-06-24",
+            "time":getTime(),
             "senderId":23,
             "receiverId":25
-        }
-    ]);
-
-    const[message,setMessage] = useState("");
-
-    //bot response after a user send a chat
-    useEffect(()=>{
-        setTimeout(()=>{setChats([...chats,botResponse(chats[chats.length-1].message)]) },2000);
-    },[botTrigger]);
-    
+        }])
+    },[]);
     useEffect(()=>{
         scrollToBottom();
     },[chats]);
@@ -40,34 +40,28 @@ const Chat = ()=>{
         chatBody.scrollTo({ top: scrollValue, behavior: "smooth" });
 
     }
-    const sendChat = (e)=>{
-        if(message.replaceAll(" ") == "") return;
+    const getTime =()=>{
+        const currentDate = new Date();
 
-        e.preventDefault();
-        let newChat = {
-            "id":6,
-            "userId":20,
-            "message":message,
-            "time":"13:00",
-            "date":"2021-06-25",
-            "senderId":25,
-            "receiverId":23
-        }
+        const hours = String(currentDate.getHours()).padStart(2,"0");
+        const minutes =String(currentDate.getMinutes()).padStart(2,"0");
 
-        setChats([...chats,newChat]);
-        setMessage("");
-        setBotTrigger(!botTrigger);
+        return `${hours}:${minutes}`;
     }
-    const botResponse = (option)=>{
+    const createNewChat =(_msg)=>{
+        let generateId =Math.floor(Math.random()*100)+1;
         let newChat = {
-            "id":6,
+            "id":generateId,
             "userId":20,
-            "message":"",
-            "time":"13:00",
-            "date":"2021-06-25",
+            "message":_msg,
+            "time":getTime(),
             "senderId":23,
             "receiverId":25
         }
+        return newChat;
+    }
+    const botResponse = (option)=>{
+        let newChat =createNewChat("");
         switch(option)
         {
             case '1':
@@ -88,6 +82,30 @@ const Chat = ()=>{
         }
         return newChat;
     }
+    const sendChat = (e)=>{
+        if(message.replaceAll(" ") == "") return;
+
+        e.preventDefault();
+        let newChat = {
+            "id":6,
+            "userId":20,
+            "message":message,
+            "time":"13:00",
+            "date":"2021-06-25",
+            "senderId":25,
+            "receiverId":23
+        }
+
+        setChats((prevChats)=>([...prevChats,newChat]));
+        setTimeout(()=>{
+            setChats((prevChats)=>([...prevChats,botResponse(message)]));
+            setTimeout(()=>{
+                setChats((prevChats)=>([...prevChats,createNewChat("This chatbot is not working at the moment..")]));
+            },2000)
+        },3000);
+        setMessage("");
+    }
+    
     return (
         <div className="container">
             <small className="text-danger">This chatbot is under construction</small>

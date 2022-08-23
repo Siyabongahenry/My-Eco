@@ -66,8 +66,7 @@ export const shoes = [
       ],
       "fileName": "IMG-20220105-WA0005.jpg",
       "files": [
-        "IMG-20220105-WA0005.jpg",
-        "IMG-20220111-WA0003.jpg"
+        "IMG-20220105-WA0005.jpg"
       ],
       "Ratings":5
     },
@@ -96,8 +95,7 @@ export const shoes = [
       ],
       "fileName": "IMG-20220105-WA0006.jpg",
       "files": [
-        "IMG-20220105-WA0004.jpg",
-        "IMG-20220111-WA0003.jpg"
+        "IMG-20220105-WA0004.jpg"
       ],
       "Ratings":5
     },
@@ -127,7 +125,7 @@ export const shoes = [
       "fileName": "IMG-20220105-WA0007.jpg",
       "files": [
         "IMG-20220105-WA0007.jpg",
-        "IMG-20220111-WA0003.jpg"
+        "IMG-20220105-WA000B.jpg"
       ],
       "Ratings":5
     },
@@ -156,8 +154,7 @@ export const shoes = [
       ],
       "fileName": "IMG-20220111-WA0000.jpg",
       "files": [
-        "IMG-20220111-WA0000.jpg",
-        "IMG-20220111-WA0003.jpg"
+        "IMG-20220111-WA0000.jpg"
       ],
       "Ratings":4
     },
@@ -186,8 +183,7 @@ export const shoes = [
       ],
       "fileName": "IMG-20220111-WA0001.jpg",
       "files": [
-        "IMG-20220111-WA0001.jpg",
-        "IMG-20220111-WA0003.jpg"
+        "IMG-20220111-WA0001.jpg"
       ],
       "Ratings":6
     },
@@ -216,8 +212,7 @@ export const shoes = [
       ],
       "fileName": "IMG-20220111-WA0002.jpg",
       "files": [
-        "IMG-20220111-WA0002.jpg",
-        "IMG-20220111-WA0003.jpg"
+        "IMG-20220111-WA0002.jpg"
       ],
       "Ratings":2
     },
@@ -246,8 +241,7 @@ export const shoes = [
       ],
       "fileName": "IMG-20220111-WA0003.jpg",
       "files": [
-        "IMG-20220111-WA0002.jpg",
-        "IMG-20220111-WA0003.jpg"
+        "IMG-20220111-WA0002.jpg"
       ],
       "Ratings":3
     }

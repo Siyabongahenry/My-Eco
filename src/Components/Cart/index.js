@@ -1,10 +1,10 @@
 import "./style.css";
-import { FaShoppingCart,FaArrowUp,FaArrowDown,FaTrash } from "react-icons/fa";
+import { FaShoppingCart,FaMinus,FaTrash, FaPlus,FaEye} from "react-icons/fa";
 import { priceFormat } from "../../Services/Format/currency";
 import { Link } from "react-router-dom";
 import emptyCart from "./empty-cart.svg";
-import card from "./card.png";
 import onlinePayment from "./online.png";
+import { useState } from "react";
 const Cart =({cart,cartItems,delCartItem})=>{
     return (
             <div className="container-fluid cart">
@@ -16,38 +16,42 @@ const Cart =({cart,cartItems,delCartItem})=>{
                         <img src={emptyCart} alt="empty-cart "/> 
                     </div>:
                     <div className="row">
-                        {
-                            cartItems.map((item)=>{
-                                return(
-                                <div key={item.id} className="col-12 col-lg-3">
-                                    <div className="cart-item">
-                                        <div className="overflow-hidden text-center">
-                                            <Link className="float-start btn-view" to={`/details/${item.shoe.id}`}>view</Link>
-                                            <FaTrash className="float-end text-danger" onClick={()=>{delCartItem(item.id)}}/>
-                                            <span className="size">SIZE {item.size}</span>
+                        <div className="col-12 col-lg-8">
+                            <div className="row">
+                                {
+                                    cartItems.map((item)=>{
+                                        return(
+                                        <div key={item.id} className="col-12 col-lg-6">
+                                            <div className="cart-item">
+                                                <div className="overflow-hidden text-center">
+                                                    <Link className="float-start btn-view" to={`/details/${item.shoe.id}`}><FaEye/></Link>
+                                                    <FaTrash className="float-end text-danger" onClick={()=>{delCartItem(item.id)}}/>
+                                                    <span className="size">SIZE {item.size}</span>
+                                                </div>
+                                                <div className="text-center">
+                                                    <img src={process.env.PUBLIC_URL+`/images/${item.shoe?.fileName}`}/>
+                                                </div>
+                                                <p className="item-name text-center">
+                                                    {item.shoe?.name}
+                                                </p>
+                                                <div className="text-center">
+                                                    Quantity: {item.quantity > 1 && <FaMinus className="btn-quantity"/>} <span className="quantity">{item.quantity}</span> <FaPlus className="btn-quantity"/>
+                                                    <br/><button className="btn-save-changes m-2">save</button>
+                                                </div>
+                                                <p className="item-price">
+                                                    { priceFormat(item.shoe?.price)}
+                                                </p>
+                                                <p className="text-end">
+                                                    <b>subtotal: { priceFormat(item.subtotal)}</b>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div className="text-center">
-                                            <img src={process.env.PUBLIC_URL+`/images/${item.shoe?.fileName}`}/>
-                                        </div>
-                                        <p className="item-name text-center">
-                                            {item.shoe?.name}
-                                        </p>
-                                        <div >
-                                            Quantity: <FaArrowDown className="text-theme"/><span className="quantity">{item.quantity}</span><FaArrowUp className="text-theme"/>
-                                            <button className="btn-save-changes">save</button>
-                                        </div>
-                                        <p className="item-price">
-                                            { priceFormat(item.shoe?.price)}
-                                        </p>
-                                        <p className="text-end">
-                                            <b>subtotal: { priceFormat(item.subtotal)}</b>
-                                        </p>
-                                    </div>
-                                </div>
-                                );
-                            })
-                        }
-                        <div className="col-12 col-lg-6">
+                                        );
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div className="col-12 col-lg-4">
                             <div className="m-2 cart-summary">
                                 <h2>Summary</h2>
                                 <div className="row">
@@ -57,6 +61,9 @@ const Cart =({cart,cartItems,delCartItem})=>{
                                     <div className=" col-12 col-md-8">
                                         <p>
                                             Total items: <span className="badge bg-info text-white">{cart.quantity}</span>
+                                        </p>
+                                        <p>
+                                            Delivery Price: <span className="text-success">R 0.00</span>
                                         </p>
                                         <p>
                                             Total price: <b>{priceFormat(cart.total)}</b>

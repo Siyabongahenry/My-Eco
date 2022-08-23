@@ -1,8 +1,9 @@
 import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {FaBars,FaHome,FaUser,FaShoppingCart,FaComment,FaHeart,FaSearch} from "react-icons/fa";
-import { useState } from "react";
+import { useState} from "react";
 const Navigation = ({user,cart,favourite,searchItem,userLogOut})=>{
+    const location = useLocation();
     const[sideMenu,setSideMenu] = useState(false);
     const[navigation,setNavigation] = useState(true);
     const[mobSearch,setMobSearch] = useState("");
@@ -48,14 +49,18 @@ const Navigation = ({user,cart,favourite,searchItem,userLogOut})=>{
                     </ul>
                 </nav>
             }
-            <div className={`search-container ${mobSearch}`}>
-                <div>
-                    <form onSubmit={handleSubmit}>
-                        <input type="text" className="item-search-input focus-outline-none" placeholder="search here" onChange={(e)=>{setSearchValue(e.target.value);}}/>
-                        <button className="item-search-btn focus-outline-none"><FaSearch/></button>
-                    </form>
+            {
+                location.pathname ==="/My-Eco/" &&
+                <div className={`search-container ${mobSearch}`}>
+                    <div>
+                        <form onSubmit={handleSubmit}>
+                            <input type="text" className="item-search-input focus-outline-none" placeholder="search here" onChange={(e)=>{setSearchValue(e.target.value);}}/>
+                            <button className="item-search-btn focus-outline-none"><FaSearch/></button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            }
+
         </header>
     );
 }

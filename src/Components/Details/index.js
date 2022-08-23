@@ -10,6 +10,7 @@ const Details = ({addToCart})=>{
     const[fileName,setFileName] = useState("");
     const[selectedSize,setSelectedSize] = useState(0);
     const[error,setError] = useState(null);
+    const[cartLink,setCartLink] = useState(false);
 
     useEffect( ()=>{
         const getShoe = ()=>{
@@ -25,17 +26,30 @@ const Details = ({addToCart})=>{
         }
         getShoe();
     },[]);
-     
+     const addItemToCart = (_shoe,_selectedSize)=>{
+        addToCart(_shoe,_selectedSize);
+        setCartLink(true);
+     }
     return (
     <div className="details">
     { 
         shoe === null?<h3 className="text-center">Item not found</h3>:
         <>
             <div className="overflow-auto">
-                <button className="float-end btn-cart" onClick={()=>{addToCart(shoe,selectedSize)}}>+ <FaShoppingCart/></button>
+                <button className="float-end btn-cart" onClick={()=>{addItemToCart(shoe,selectedSize)}}>+size {selectedSize} <FaShoppingCart/></button>
                 <h1 className="shoe-name">
                         {shoe.name}
                 </h1>
+            </div>
+            <div className="text-center mb-2">
+                {
+                    cartLink &&
+                    <div className="cart-link">
+                        <button className="float-end" onClick={()=>{setCartLink(false)}}>x</button>
+                        <span>You have added size {selectedSize} of this shoe in your cart, for payments please procceed to cart.</span><br/>
+                        <Link className="btn btn-success" to="/cart"><FaShoppingCart/> Go to Cart</Link>
+                    </div>
+                }
             </div>
             <div className="row">
                 <div className="col-12 col-lg-6">

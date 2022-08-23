@@ -51,7 +51,7 @@
 .store-item .item-btn{
     border:none;
     margin-right:1%;
-    color:var(--theme-color);
+    color:var(--theme-sec-color);
     background-color:inherit;
     outline-color: silver;
     position:relative;
@@ -109,7 +109,7 @@
 
 .store-item .item-btn:hover{
     box-shadow:2px 2px 2px silver;
-    background-color: var(--theme-color);
+    background-color: var(--theme-sec-color);
     color:white;
 }
 
@@ -132,7 +132,7 @@
 .store-item .size-group h3{
     padding: 1%;
     font-size:1em;
-    color:red;
+    color:var(--theme-sec-color);
     border-radius:5px;
 }
 .store-item 
@@ -153,7 +153,7 @@
 .store-item 
 .size-group
 .size:hover{
-    background-color: #f7890bc2;
+    background-color:rgba(199, 21, 134, 0.5);
     cursor: pointer;
     color: white;
     box-shadow: none;

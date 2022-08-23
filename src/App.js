@@ -11,6 +11,7 @@ import Chat from "./Components/Chat";
 import Favourite from "./Components/Favourite";
 import Profile from "./Components/Profile";
 import Order from "./Components/Order";
+import OrderComplete from "./Components/OrderComplete";
 import Payment from "./Components/Payment";
 import Register from "./Components/Register";
 import {getShoes as getShoesFromDb,
@@ -245,7 +246,11 @@ function App()
                                 <Profile user={user}/>      
                             }
                         />   
-                       
+                       <Route path="/order-complete"
+                            element={
+                                <OrderComplete/>      
+                            }
+                        />  
                         <Route path="/order"
                             element={
                                 <Order/>      

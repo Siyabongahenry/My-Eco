@@ -3,7 +3,7 @@
  color:var(--theme-color);
 }
 .register-container h1 span{
-    color:black;
+    color:var(--theme-sec-color);
 }
 
 .input-container{

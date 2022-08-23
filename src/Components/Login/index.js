@@ -1,13 +1,13 @@
 import "./style.css";
 import lock from "./lock.png";
 import { FaLock } from "react-icons/fa";
-import { useParams,useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useParams,useNavigate,Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { UserContext } from "../../App";
 const Login =({userLogin})=>{
+    const user = useContext(UserContext);
     const{returnUrl} = useParams();
     const navigate = useNavigate();
-    const[email,setEmail] = useState("");
-    const[password,setPassword] = useState("");
     const[error,setError] = useState("");
     const [userInput,setUserInput] = useState({
         "email":"",
@@ -17,7 +17,6 @@ const Login =({userLogin})=>{
         setUserInput({...userInput,[e.target.name]:e.target.value});
     }
     const handleSubmit =(e)=>{
-        console.log(userInput.email+" + "+userInput.password);
         e.preventDefault();
         if(!userLogin(userInput.email,userInput.password))
         {
@@ -46,19 +45,24 @@ const Login =({userLogin})=>{
                 <small>{error}</small>
             </div>
             <div className="text-center p-2">
-                <button className="btn-login">Login</button>
+                <button className="btn-login">Login</button><br/>
+                <Link className="text-primary" to="/register">Forgot password</Link><br/>
+                <Link className="text-primary" to="/register">Create new account</Link>
             </div>
-            <div>
-                <span className="text-danger">This is a fake website, use the information below to login</span>
+            { 
+                user.details.email === "user@myeco.com" &&
                 <div>
+                    <span className="text-danger">If not registered use the information below</span>
                     <div>
-                        email: user@myeco.com
-                    </div>
-                    <div>
-                        password: 2022*MyEco
+                        <div>
+                            email: user@myeco.com
+                        </div>
+                        <div>
+                            password: 2022*MyEco
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </form>
     </div>
     )
