@@ -1,6 +1,5 @@
 import "./style.css";
 import Items from "../Items/index";
-import Sales from "../Sales/index";
 import CategoryFilter from "../Filters/category";
 import PriceFilter from "../Filters/price";
 import { FaCaretDown } from "react-icons/fa";
@@ -14,7 +13,6 @@ const Store = ({shoes,getMoreShoes,filterByCategory,filterByPrice,filterByItems,
             <div className="row">
                 <div className="filters col-12 col-lg-3">
                     <PriceFilter filterByPrice={filterByPrice}/>
-                    <Sales/>
                 </div>
                 <div className="col-12 col-lg-9">   
                     <Items addToCart={addToCart} cartItems={cartItems} favourite={favourite} addToFav={addToFav} items={shoes} removeFromFav={removeFromFav}/>

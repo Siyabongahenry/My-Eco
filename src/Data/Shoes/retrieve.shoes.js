@@ -19,7 +19,7 @@ export const getShoes = (count = 100000,search_value = null)=>{
             else{
                 accept(shoesList);
             }
-        },3000);
+        },800);
         
     });
     return promise;
@@ -39,7 +39,7 @@ export const getMore = (_skip,_category,_items=3)=>{
             else{
                 reject("shoes not found");
             }
-        },2000)
+        },800)
     });
     return promise;
 }
@@ -56,7 +56,7 @@ export const getShoe = (_id)=>{
             else{
                 reject(null);
             }
-        },2000);
+        },800);
     });
     return promise;
 }
@@ -74,7 +74,7 @@ export const getByCategory = (_category,count)=>{
             else{
                 reject("Items could not be found");
             }
-        },2000)
+        },800)
        
     });
     return promise;
@@ -94,7 +94,7 @@ export const getByPriceRange = (_lowest,_highest,_category)=>{
             else{
                 reject("Items could not be found");
             }
-        }, 2000);
+        }, 800);
         
     });
     return promise;

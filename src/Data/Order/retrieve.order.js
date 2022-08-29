@@ -42,7 +42,7 @@ export const addOrder =(_cartItems,_quantity,_total,_paid,_user)=>{
             {
                 reject("Order could not be accepted due to faulty details.");
             }
-        },3000);
+        },800);
     });
     return promise;
 }
