@@ -1,4 +1,6 @@
 .payment-container h1{
+    font-size:1.25em;
+}
+.payment-container h2{
     font-size:1.125em;
-    text-align: center;
 }

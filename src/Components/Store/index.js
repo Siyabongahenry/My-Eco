@@ -14,12 +14,10 @@ const Store = ({shoes,getMoreShoes,filterByCategory,filterByPrice,filterByItems,
             <div className="row">
                 <div className="filters col-12 col-lg-3">
                     <PriceFilter filterByPrice={filterByPrice}/>
-                    <Sales items={shoes.filter(({discount})=>discount > 0)} addToCart={addToCart}/>
+                    <Sales/>
                 </div>
-                <div className="col-12 col-lg-9">
-                    {
-                        shoes.length > 0?<Items addToCart={addToCart} cartItems={cartItems} favourite={favourite} addToFav={addToFav} items={shoes} removeFromFav={removeFromFav}/>:<div className="text-center">Item not found</div>
-                    }
+                <div className="col-12 col-lg-9">   
+                    <Items addToCart={addToCart} cartItems={cartItems} favourite={favourite} addToFav={addToFav} items={shoes} removeFromFav={removeFromFav}/>
                     <div className="text-center">
                         <button className="btn-show-more focus-outline-none" onClick={getMoreShoes}>show more <FaCaretDown/></button>
                     </div>

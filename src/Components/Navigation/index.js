@@ -29,9 +29,9 @@ const Navigation = ({user,cart,favourite,searchItem,userLogOut})=>{
                             <ul > 
                                 <li><Link className="menu-link" to="/My-Eco/"><FaHome/></Link></li>
                                 <li><Link className="menu-link" to="/profile"><FaUser/></Link></li>
-                                <li><Link className="menu-link" to="/favourite"><FaHeart/><span className="counter">{favourite.length}</span></Link></li> 
-                                <li><Link className="menu-link" to="/cart"><FaShoppingCart/><span className="counter">{cart.quantity}</span></Link></li>
-                                <li><Link className="menu-link" to="/chat"><FaComment/><span className="counter">0</span></Link></li>
+                                <li><Link className="menu-link" to="/favourite"><FaHeart/><span className="counter">{favourite !=null?favourite.length:0}</span></Link></li> 
+                                <li><Link className="menu-link" to="/cart"><FaShoppingCart/><span className="counter">{cart !=null?cart.quantity:0}</span></Link></li>
+                                <li><Link className="menu-link" to="/chat"><FaComment/></Link></li>
                                 <li><Link className="menu-link" to="/order">Order</Link></li>
                             </ul>
                         </li>

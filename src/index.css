@@ -21,6 +21,9 @@ body {
   margin-top:50px;
   overflow-x: hidden;
 }
+.inner-container{
+  min-height:70vh;
+}
 .focus-outline-none:focus{
   outline:none;
 }

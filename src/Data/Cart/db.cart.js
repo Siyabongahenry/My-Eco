@@ -1,6 +1,7 @@
 export let cart ={
     "id":0,
     "total": 0,
+    "cartItems":[],
     "quantity": 0
 };
 
@@ -51,3 +52,9 @@ export const remove = (_id)=>{
    updateCart();
    return cartItems;
 }
+export const clear=()=>{
+    cartItems = [];
+    updateCart();
+    return cartItems;
+}
+

@@ -105,7 +105,6 @@ const Register = ({registerUser})=>{
             navigate("/login/My-Eco"); 
         }
     }
-
     
     return (
         <div className="register-container">

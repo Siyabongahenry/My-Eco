@@ -31,8 +31,8 @@ const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
     }
     return (
         <div className="row">
-            {
-                items.map(
+            {   items != null?
+                (items.map(
                     (shoe)=>
                         <div className="col-12 col-md-4 p-2" key={shoe.id}>
                             <div className="store-item">
@@ -53,8 +53,8 @@ const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
                                             <span key={size} className="size" onClick={()=>{addToCart(shoe,parseInt(size));setSizeGroupId(-1)}}>{size} 
                                                 <span className="size-status text-white">
                                                     {
-                                                        quantity ===0 && <span className="text-danger d-block">out of stock</span> || 
-                                                        quantity < 5 && <span className="text-warning d-block">{`${quantity} remaining`}</span> ||
+                                                        (quantity ===0 && <span className="text-danger d-block">out of stock</span>) || 
+                                                        (quantity < 5 && <span className="text-warning d-block">{`${quantity} remaining`}</span>) ||
                                                         <span className="text-success d-block">In Stock</span>
                                                     }
                                                 </span>
@@ -65,7 +65,7 @@ const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
                                 
                                 </div>
                                 <p className="img-container">
-                                    <img src={process.env.PUBLIC_URL+`/images/${shoe.fileName}`}/>
+                                    <img src={process.env.PUBLIC_URL+`/images/${shoe.fileName}`} alt="shoe"/>
                                 </p>
                                 <p className="name">{shoe.name}</p>
                                 <p className="quantity-status">{shoe.quantity > 0?"IN STOCK":"OUT OF STOCK"}</p>
@@ -74,6 +74,10 @@ const Items = ({items,addToCart,addToFav,cartItems,favourite,removeFromFav})=>{
                             </div>
                         </div>
                 )
+                ):
+                <div className="col-12 text-center">
+                    Loading items...
+                </div>
             }
         </div>
     );

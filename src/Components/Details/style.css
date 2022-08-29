@@ -26,11 +26,15 @@
     border-radius:5px;
     padding:2%;
     color:var(--theme-sec-color);
+    position: relative;
 }
 .details .cart-link button{
     background-color: transparent;
     color:red;
-    border-color: red;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 .details img{
     max-width:300px;

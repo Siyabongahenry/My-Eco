@@ -23,13 +23,14 @@ import {getCart as getCartFromDb,
     getCartItems as getCartItemsFromDb,
     addCartItem as addCartItemToDb,
     removeCartItem as rvCartItemFromDb,
-    addCartItem
+    clearCartItems
 } from "./Data/Cart/retrieve.cart";
 import {get as getFavFromDb,
  add as addFavToDb,
  remove as removeFavFromDb,
  count as countFavItems
 } from "./Data/Favourite/retrieve.favourites";
+
 
 export const UserContext = createContext();
 
@@ -53,11 +54,11 @@ function App()
             "cellNo":"+27 61 456 8926"
         }
     });
-    const[shoes,setShoes] = useState([]);
-    const[cart,setCart] = useState({});
-    const[cartItems,setCartItems] = useState([]);
+    const[shoes,setShoes] = useState(null);
+    const[cart,setCart] = useState(null);
+    const[cartItems,setCartItems] = useState(null);
 
-    const[favourite,setFavourite] =useState([]);
+    const[favourite,setFavourite] =useState(null);
     const[sortAsc,setSortAsc] = useState(false);
     useEffect(()=>{
         getShoes();
@@ -90,9 +91,11 @@ function App()
         console.log(_details);
         setUser({...user,details:{..._details}});
     }
+
     const userLogout = ()=>{
         setUser({...user,"login":false});
     }
+    //search items
     const searchItem = (value)=>{
         getShoesFromDb(store.displayItems,value)
         .then(setShoes)
@@ -100,6 +103,7 @@ function App()
             console.log(e);
         });
     }
+    //get shoes from a shoes table in a database
     const getShoes = ()=>{
         getShoesFromDb(store.displayItems)
         .then(setShoes)
@@ -107,6 +111,7 @@ function App()
             console.log(e);
         });
     }
+    //show more shoes in store by appending more
     const getMoreShoes =()=>{
         getMoreShoesFromDb(store.displayItems,store.category)
         .then((response)=>{
@@ -117,6 +122,7 @@ function App()
             console.log(e);
         })
     }
+    //get a cart from a database
     const getCart = ()=>{
         getCartFromDb()
         .then(setCart)
@@ -124,6 +130,7 @@ function App()
             console.log(e);
         });
     }
+    //get cart items from a cartItem table in a database
     const getCartItems = ()=>{
         getCartItemsFromDb()
         .then(setCartItems)
@@ -131,7 +138,7 @@ function App()
             console.log(e);
         });
     }
-    
+    //filter store items by category
     const filterByCategory = (_category)=>{
         getShoeByCategory(_category,store.displayItems)
         .then((response)=>{
@@ -148,6 +155,7 @@ function App()
             console.log(e);
         });
     }
+    //filter store items by price
     const filterByPrice =(lowest,highest)=>{
         setSortAsc(true);
          getShoeByPriceRange(lowest,highest,store.category)
@@ -156,12 +164,18 @@ function App()
             console.log(e);
          });
     }
-    const addToCart =(_shoe,_size)=>{
+    //add item to cart
+    const addToCart = (_shoe,_size)=>{
         addCartItemToDb(_shoe,_size).
-        then(setCartItems)
+        then((response)=>{
+            setCartItems(response);
+        })
         .catch((e)=>{
             console.log(e);
         })
+    }
+    const clearCart=()=>{
+        setCartItems(clearCartItems());
     }
     const delCartItem=(_id)=>{
        rvCartItemFromDb(_id)
@@ -213,76 +227,74 @@ function App()
     const cart_props={
         "delCartItem":delCartItem,
         "cart":cart,
-        "cartItems":cartItems
+        "cartItems":cartItems,
+        "clearCart":clearCart
     }
     return (
         <UserContext.Provider value={user}>
             <Router>
                 <div className="main-container">
                     <Navigation user={user} cart={cart} favourite={favourite} searchItem ={searchItem}/> 
-                    <Routes>
-                        <Route path="/My-Eco/"
-                            element={
-                                <Store {...store_props}/>     
-                            }
-                        />    
-                        <Route path="/details/:id"
-                            element={
-                                <Details addToCart={addToCart}/>      
-                            }
-                        />    
-                        <Route path="/cart"
-                            element={
-                                <Cart {...cart_props}/>
-                            }
-                        />   
-                        <Route path="/favourite"
-                            element={
-                                <Favourite shoes={favourite} removeFromFav={removeFromFav} addToCart={addToCart}/>      
-                            }
-                        />    
-                        <Route path="/profile"
-                            element={
-                                <Profile user={user}/>      
-                            }
-                        />   
-                       <Route path="/order-complete"
-                            element={
-                                <OrderComplete/>      
-                            }
-                        />  
-                        <Route path="/order"
-                            element={
-                                <Order/>      
-                            }
-                        />     
-                         <Route path="/payment"
-                            element={
-                                <Payment total={cart.total}/>      
-                            }
-                        />    
-                        <Route path="/register"
-                            element={
-                                <Register registerUser={registerUser}/>      
-                            }
-                        />      
-                        <Route path="/login/:returnUrl"
-                            element={
-                                <Login userLogin={userLogin}/>      
-                            }
-                        />    
-                        <Route path="/logout"
-                            element={
-                                <Logout userLogout={userLogout}/>      
-                            }
-                        />    
-                        <Route path="/chat"
-                            element={
-                                <Chat/>      
-                            }
-                        />    
+                    <div className="inner-container">
+                        <Routes>
+                            <Route path="/My-Eco/"
+                                element={
+                                    <Store {...store_props}/>     
+                                }
+                            />    
+                            <Route path="/details/:id"
+                                element={
+                                    <Details addToCart={addToCart}/>      
+                                }
+                            />    
+                            <Route path="/cart"
+                                element={
+                                    <Cart {...cart_props}/>
+                                }
+                            />   
+                            <Route path="/favourite"
+                                element={
+                                    <Favourite shoes={favourite} removeFromFav={removeFromFav} addToCart={addToCart}/>      
+                                }
+                            />    
+                            <Route path="/profile"
+                                element={
+                                    <Profile user={user}/>      
+                                }
+                            />   
+                            <Route path="/order"
+                                element={
+                                    <Order/>      
+                                }
+                            />     
+                            <Route path="/payment"
+                                element={
+                                    <Payment cart={cart} cartItems={cartItems} clearCart={clearCart}/>      
+                                }
+                            />    
+                            <Route path="/register"
+                                element={
+                                    <Register registerUser={registerUser}/>      
+                                }
+                            />      
+                            <Route path="/login/:returnUrl"
+                                element={
+                                    <Login userLogin={userLogin}/>      
+                                }
+                            />    
+                            <Route path="/logout"
+                                element={
+                                    <Logout userLogout={userLogout}/>      
+                                }
+                            />    
+                            <Route path="/chat"
+                                element={
+                                    <Chat/>      
+                                }
+                            />    
 
-                    </Routes>
+                        </Routes>
+                    </div>
                     <Footer/>
                 </div>
             </Router>

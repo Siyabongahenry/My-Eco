@@ -1,3 +1,5 @@
+//this file act as a database
+//declare a shoe array that act as a table in a database
 export const shoes = [
     {
       "id": 1,

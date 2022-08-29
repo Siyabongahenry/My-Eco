@@ -45,7 +45,7 @@ const Login =({userLogin})=>{
                 <small>{error}</small>
             </div>
             <div className="text-center p-2">
-                <button className="btn-login">Login</button><br/>
+                <button className="btn-login" name="login" >Login</button><br/>
                 <Link className="text-primary" to="/register">Forgot password</Link><br/>
                 <Link className="text-primary" to="/register">Create new account</Link>
             </div>

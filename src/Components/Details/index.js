@@ -6,47 +6,47 @@ import {FaInfoCircle, FaShoppingCart} from "react-icons/fa";
 import { useState,useEffect } from "react";
 const Details = ({addToCart})=>{
     const{id} = useParams();
-    const[shoe,setShoe] = useState(null);
-    const[fileName,setFileName] = useState("");
-    const[selectedSize,setSelectedSize] = useState(0);
-    const[error,setError] = useState(null);
-    const[cartLink,setCartLink] = useState(false);
+    const[details,setDetails] = useState({
+        shoe:null,
+        selectedFile:null,
+        selectedSize:null,
+        error:null,
+        showCartLink:false
+    });
 
     useEffect( ()=>{
         const getShoe = ()=>{
-            getShoeFromDb(id)
+            getShoeFromDb(parseInt(id))
             .then((data)=>{
-                setShoe(data);
-                setFileName(data.files[0]);
-                setSelectedSize(data.sizes[0].size);
+                setDetails({...details,shoe:data,selectedFile:data.files[0],selectedSize:data.sizes[0].size});
             })
             .catch((e)=>{
-                setError("Something went wrong");
+                setDetails({...details,error:e});
             });
         }
         getShoe();
     },[]);
      const addItemToCart = (_shoe,_selectedSize)=>{
         addToCart(_shoe,_selectedSize);
-        setCartLink(true);
+        setDetails({...details,showCartLink:true});
      }
     return (
     <div className="details">
     { 
-        shoe === null?<h3 className="text-center">Item not found</h3>:
+        details.shoe === null?<h3 className="text-center">Loading item...</h3>:
         <>
             <div className="overflow-auto">
-                <button className="float-end btn-cart" onClick={()=>{addItemToCart(shoe,selectedSize)}}>+size {selectedSize} <FaShoppingCart/></button>
+                <button className="float-end btn-cart" onClick={()=>{addItemToCart(details.shoe,details.selectedSize)}}>+size {details.selectedSize} <FaShoppingCart/></button>
                 <h1 className="shoe-name">
-                        {shoe.name}
+                        {details.shoe.name}
                 </h1>
             </div>
             <div className="text-center mb-2">
                 {
-                    cartLink &&
+                    details.showCartLink &&
                     <div className="cart-link">
-                        <button className="float-end" onClick={()=>{setCartLink(false)}}>x</button>
-                        <span>You have added size {selectedSize} of this shoe in your cart, for payments please procceed to cart.</span><br/>
+                        <button onClick={()=>{setDetails({...details,showCartLink:false})}}>x</button>
+                        <span>You have added size {details.selectedSize} of this shoe in your cart, for payments please procceed to cart.</span><br/>
                         <Link className="btn btn-success" to="/cart"><FaShoppingCart/> Go to Cart</Link>
                     </div>
                 }
@@ -54,11 +54,11 @@ const Details = ({addToCart})=>{
             <div className="row">
                 <div className="col-12 col-lg-6">
                     <div className="text-center">
-                        <img src={process.env.PUBLIC_URL+`/images/${fileName}`}/>
+                        <img src={process.env.PUBLIC_URL+`/images/${details.selectedFile}`}/>
                         <div className="thumb-nails">
                             {     
-                                shoe.files.map((file)=>
-                                    <div key={file} className={`thumb-nail ${fileName == file && "selected"}`} onClick={()=>{setFileName(file)}}>
+                                details.shoe.files.map((file)=>
+                                    <div key={file} className={`thumb-nail ${details.selectedFile == file && "selected"}`} onClick={()=>{setDetails({...details,selectedFile:file})}}>
                                         <img src={process.env.PUBLIC_URL+`/images/${file}`}/>
                                     </div>
                                 )
@@ -78,15 +78,15 @@ const Details = ({addToCart})=>{
                         <tbody>
                             <tr>
                                 <td>Category</td>
-                                <td>{shoe.category}</td>
+                                <td>{details.shoe.category}</td>
                             </tr>
                             <tr>
                                 <td>Size range</td>
-                                <td>{shoe.sizes.length > 0 && `${shoe.sizes[0].size} - ${shoe.sizes[shoe.sizes.length-1].size}`}</td>
+                                <td>{details.shoe.sizes.length > 0 && `${details.shoe.sizes[0].size} - ${details.shoe.sizes[details.shoe.sizes.length-1].size}`}</td>
                             </tr>
                             <tr>
                                 <td>Price</td>
-                                <td><b>{ priceFormat(shoe.price)}</b></td>
+                                <td><b>{ priceFormat(details.shoe.price)}</b></td>
                             </tr>
                         </tbody>
                     </table>
@@ -94,12 +94,12 @@ const Details = ({addToCart})=>{
                         <h4 className="text-center">Sizes</h4>
                         <div className="size-container text-center">
                             {
-                                shoe.sizes.map((sizeObj)=>
-                                <span key={sizeObj.size} className={`size ${selectedSize === sizeObj.size && "selected"}`} onClick={()=>{
-                                    setSelectedSize(sizeObj.size)}} data-status={"out of stock"}>
+                                details.shoe.sizes.map((sizeObj)=>
+                                <span key={sizeObj.size} className={`size ${details.selectedSize === sizeObj.size && "selected"}`} onClick={()=>{
+                                    setDetails({...details,selectedSize:sizeObj.size})}} data-status={"out of stock"}>
                                     {sizeObj.size}
                                     <span className="size-status">
-                                        {sizeObj.quantity ===0 && "out of stock" || sizeObj.quantity <= 5 && `${sizeObj.quantity} remaining` || <span className="text-success">In Stock</span>}
+                                        {(sizeObj.quantity ===0 && "out of stock") || (sizeObj.quantity <= 5 && `${sizeObj.quantity} remaining`) || <span className="text-success">In Stock</span>}
                                     </span>
                                 </span>)
                             }
@@ -111,7 +111,7 @@ const Details = ({addToCart})=>{
                     <div className="p-2 description">
                         <h6>More <FaInfoCircle/></h6>
                         <p>
-                            {shoe.description}
+                            {details.shoe.description}
                         </p>
                     </div>
                 </div>

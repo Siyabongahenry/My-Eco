@@ -1,144 +1,77 @@
 import "./style.css";
-import { priceFormat } from "../../Services/Format/currency";
 import { useContext, useState } from "react";
 import { UserContext } from "../../App";
-import { Link, useNavigate } from "react-router-dom";
-const Payment = ({total})=>{
+import Profile from "../Profile";
+import OrderComplete from "../OrderComplete";
+import CardPayment from "../CardPayment";
+import OrderConfirm from "../OrderConfirm";
+import { addOrder as addOrderToDb } from "../../Data/Order/retrieve.order";
+import { FaArrowRight } from "react-icons/fa";
+const Payment = ({cart,cartItems,clearCart})=>{
     const user = useContext(UserContext);
-    const navigate = useNavigate();
-    const[cardDetails,setCardDetails] = useState({
-        cardNumber:"",
-        expiryDate:"",
-        cvc:"",
-        postalCode:"",
-        country:""
-    });
-    const[error,setError] = useState({
-        cardNumber:"",
-        cvc:"",
-        expiryDate:"",
-        postalCode:""
-    });
-    const validateCardNumber = ()=>{
-        const cardNoPattern = /$\d{8,}/;
-        if(cardDetails.cardNumber.search(cardNoPattern) >= 0)
-        {
-            setError((prevError)=>({...prevError,cardNumber:""}));
-            return true;
-        }
-        setError((prevError)=>({...prevError,cardNumber:"This is not a valid card number"}));
-        return false;
+    const[payment,setPayment] = useState({
+        userProfile:true,
+        orderConfirm:false,
+        cardPayment:false,
+        orderComplete:false,
+        order:null
+    }); 
+    const confirmProfile = ()=>{
+        setPayment({...payment,userProfile:false,orderConfirm:true});
     }
-    const validateCVC = ()=>{
-        const cvcPattern = /^\d{3}$/;
-        if(cardDetails.cvc.search(cvcPattern) >= 0)
-        {
-            setError((prevError)=>({...prevError,cvc:""}));
-            return true;
-        }
-        setError((prevError)=>({...prevError,cvc:"This is not a valid cvc/cvv"}));
-        return false;
-    }
-    const validateExpiryDate =()=>{
-        let todayDate = new Date();
-        let expiryDate = new Date(cardDetails.expiryDate);
+    const confirmOrder = ()=>{
+        setPayment((prevPayment)=>({...prevPayment,orderConfirm:false,cardPayment:true}))
         
-        if(expiryDate > todayDate)
-        {
-            setError((prevErr)=>({...prevErr,expiryDate:""}));
-            return true
-        }
-        setError((prevErr)=>({...prevErr,expiryDate:"The expiry date is invalid"}));
-        return false;
+        addOrderToDb(cartItems,cart.quantity,cart.total,cart.total,user.details)
+        .then((_order)=>{
+            clearCart();
+            setPayment((prevPayment)=>({...prevPayment,order:_order}));
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
     }
-    const validatePostalCode =()=>{
-        if(isNaN(cardDetails.postalCode))
-        {
-            setError((prevErr)=>({...prevErr,postalCode:"This is not a valid postal code."}));
-            return false;
-        }
-        else{
-            setError((prevErr)=>({...prevErr,postalCode:""}));
-            return true;
-        }
-    }
-    const handleChange = (e)=>{
-        setCardDetails({...cardDetails,[e.target.name]:e.target.value});
-        console.log(e.target.value);
-
-        validateExpiryDate();
-    }
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-
-        let isValidCardNo = validateCardNumber();
-        let isValidCVC = validateCVC();
-        let isValidExpiryDate = validateExpiryDate();
-        let isValidPostalCode = validatePostalCode();
-   
-        if(isValidCardNo && isValidCVC && isValidExpiryDate && isValidPostalCode)
-        {
-            navigate("/order-complete");
-        }
-        else
-        {
-            return;
-        }
-
+    const confirmPayment = ()=>{
+        setPayment({...payment,cardPayment:false,orderComplete:true});
     }
     return (
-    <div className="container payment-container p-2">
-        <h1>Online Payment</h1>
+    <div className="container p-2 payment-container">
+        <h1 className="text-center">Online Payment</h1>  
         {
-            user.login?
-            (
-        
-            <form onSubmit={handleSubmit}> 
-                <div className="row text-center">
-                    <div className="col-6">Name: {`${user.details.firstName} ${user.details.lastName}`}</div>
-                    <div className="col-6">Email: {user.details.email}</div>
-                    <div className="col-6">Cell No: {user.details.cellNo}</div>
-                    <div className="col-6">Address: {user.details.address}</div>
-                </div>
-                <div>
-                    <input type="text" name="cardNumber" onChange={handleChange} placeholder="card number"  className="form-control  m-1"/>
-                    <span className="text-danger">{error.cardNumber}</span>
-                </div>
-                <div className="row">
-                    <div className="col-6">
-                        <input type="date" name="expiryDate"  onChange={handleChange} placeholder="Exp(MM/YYYY)" className="form-control  m-1"/>
-                        <span className="text-danger">{error.expiryDate}</span>
+            user.login && <>{
+                (payment.userProfile && <>
+                    <div className="text-end text-info">
+                        2 steps remaining
                     </div>
-                    <div className="col-6">
-                        <input type="text" name="cvc"  onChange={handleChange} placeholder="CVC/CVV" className="form-control  m-1"/>
-                        <span className="text-danger">{error.cvc}</span>
+                    <p className="text-center">
+                        Please confirm all your details
+                    </p>
+                    <Profile/>
+                    <div className="text-center">
+                        <button className="btn btn-primary" onClick={confirmProfile}>Confirm Details <FaArrowRight/></button>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-6">
-                        <input type="text" name="postalCode"  onChange={handleChange} placeholder="Postal code" className="form-control m-1"/>
-                        <span className="text-danger">{error.postalCode}</span>
+                </>)||
+                (payment.orderConfirm && <>
+                    <div className="text-end text-info">
+                        1 steps remaining
                     </div>
-                    <div className="col-6">
-                        <select className="form-control  m-1"  onChange={handleChange} value="South Africa" name="country">
-                            <option value="South Africa">South Africa</option>
-                        </select>
+                    <OrderConfirm cart={cart} cartItems={cartItems} confirmOrder={confirmOrder}/>
+                </>) ||
+                (payment.cardPayment && <>
+                    <div className="text-end text-info">
+                        0 steps remaining
                     </div>
-                </div>
-                <div className="overflow-auto text-center p-2 bg-white mb-2">
-                    <span className="text-success p-2"> Total: {priceFormat(total)} </span>
-                    <img src={process.env.PUBLIC_URL+`/images/payment/card.png`} alt="card image"/>
-                    <button className="btn btn-success">Confirm Payment</button>
-                </div>
-            </form>
-            ):
-            (
-                <div className="text-center">
-                    Please login to procceed with your order<br/>
-                    <Link to="/login/payment" className="btn btn-primary">Login</Link>
-                </div>
-            )
-        }
+                    <div>
+                        {
+                            payment.order !==null?<CardPayment confirmPayment={confirmPayment} total={payment.order?.subtotal} orderId={payment.order?.id}/>:
+                            <p>loading....</p>
+                        }
+                    </div>
+                </>)||
+                (payment.orderComplete && <OrderComplete orderId={payment.order?.id}/>)
+             }
+            </>
+        }  
     </div>);
 }
 

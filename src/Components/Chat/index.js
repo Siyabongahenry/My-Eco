@@ -1,6 +1,7 @@
 import "./style.css";
 import { FaCheckDouble,FaPaperPlane,FaRobot } from "react-icons/fa";
 import { useState,useEffect, useRef } from "react";
+import { getTime} from "../../Services/Format/date";
 const Chat = ()=>{
     const chatBodyRef = useRef(null);
     const[message,setMessage] = useState("");
@@ -40,16 +41,8 @@ const Chat = ()=>{
         chatBody.scrollTo({ top: scrollValue, behavior: "smooth" });
 
     }
-    const getTime =()=>{
-        const currentDate = new Date();
-
-        const hours = String(currentDate.getHours()).padStart(2,"0");
-        const minutes =String(currentDate.getMinutes()).padStart(2,"0");
-
-        return `${hours}:${minutes}`;
-    }
     const createNewChat =(_msg)=>{
-        let generateId =Math.floor(Math.random()*100)+1;
+        let generateId =Math.floor(Math.random()*10000)+1;
         let newChat = {
             "id":generateId,
             "userId":20,
@@ -82,6 +75,9 @@ const Chat = ()=>{
         }
         return newChat;
     }
+    const getOrderDetailsById=(_id)=>{
+          
+    }
     const sendChat = (e)=>{
         if(message.replaceAll(" ") == "") return;
 
@@ -90,8 +86,7 @@ const Chat = ()=>{
             "id":6,
             "userId":20,
             "message":message,
-            "time":"13:00",
-            "date":"2021-06-25",
+            "time":getTime(),
             "senderId":25,
             "receiverId":23
         }
@@ -118,7 +113,7 @@ const Chat = ()=>{
                         chats.map((chat)=>
                         
                             <div key={chat.id} className={chat.senderId==25?"sent-chat":"received-chat"}>
-                                <div className="chat">{chat.message} <sub>{chat.time}{chat.senderId ==25?<FaCheckDouble className="text-theme"/>:""}</sub></div>
+                                <div className="chat">{chat.message} <sub>{chat.time}{chat.senderId ==25?<FaCheckDouble className="text-success"/>:""}</sub></div>
                             </div>
                         )
                     }

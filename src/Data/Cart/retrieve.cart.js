@@ -1,4 +1,4 @@
-import { add,cart,cartItems,remove } from "./db.cart";
+import { add,cart,cartItems,remove,clear } from "./db.cart";
 import { shoes } from "../Shoes/db.shoes";
 export const addCartItem = (_shoe,_size)=> {
     const promise = new Promise((accept,reject)=>{
@@ -54,4 +54,8 @@ export const removeCartItem = (_id)=>{
         }
     });
     return promise;
+}
+
+export const clearCartItems=()=>{  
+    return clear();   
 }

@@ -1,10 +1,14 @@
 import "./style.css";
 import profileImg from "./user.png"
-import { Link } from "react-router-dom";
-const Profile =({user})=>{
+import { Link, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../App";
+const Profile =()=>{
+    const user = useContext(UserContext);
+    const location = useLocation();
     return (
         <div className="profile-container p-2">
-            <h1 className="text-start">Profile</h1>
+            { location.pathname ==="/profile" && <h1 className="text-start">Profile</h1>}
             <div className="text-center">
                 <img src={profileImg} width="50px"/>
             </div>
