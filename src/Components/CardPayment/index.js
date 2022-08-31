@@ -86,6 +86,9 @@ const CardPayment = ({total,orderId,confirmPayment})=>{
                 Order Id:{orderId}<br/>
                 <span className="text-danger">Amount due to you:{priceFormat(total)}</span>
             </p>
+            <p>
+                <small className="text-danger">Use fake details</small>
+            </p>
              <form onSubmit={handleSubmit}> 
                 <div>
                     <input type="text" name="cardNumber" onChange={handleChange} placeholder="card number"  className="form-control  m-1"/>

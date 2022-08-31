@@ -13,3 +13,15 @@
 .btn-show-more:hover{
     opacity: 1;
 }
+.btn-scroll-up{
+    position:fixed;
+    right:0;
+    bottom:0;
+    font-size:1.25em;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background-color: black;
+    color:var(--theme-sec-color);
+    border-color: var(--theme-sec-color);
+}

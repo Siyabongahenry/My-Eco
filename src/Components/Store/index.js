@@ -2,7 +2,7 @@ import "./style.css";
 import Items from "../Items/index";
 import CategoryFilter from "../Filters/category";
 import PriceFilter from "../Filters/price";
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretDown,FaAngleUp} from "react-icons/fa";
 const Store = ({shoes,getMoreShoes,filterByCategory,filterByPrice,filterByItems,addToCart,addToFav,cartItems,favourite,removeFromFav}) =>{
    
     return (
@@ -22,6 +22,7 @@ const Store = ({shoes,getMoreShoes,filterByCategory,filterByPrice,filterByItems,
                 </div>
                 <div className="col-12 col-lg-3"></div>
             </div>
+            <button className="btn-scroll-up" onClick={()=>{window.scrollTo(0,0)}}><FaAngleUp /></button>
         </div>
     );
 }

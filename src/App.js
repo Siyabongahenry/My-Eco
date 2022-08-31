@@ -29,7 +29,6 @@ import {get as getFavFromDb,
  remove as removeFavFromDb,
  count as countFavItems
 } from "./Data/Favourite/retrieve.favourites";
-import { FaAngleUp } from "react-icons/fa";
 
 export const UserContext = createContext();
 
@@ -321,8 +320,6 @@ function App()
                             />    
                         </Routes>
                     </div>
-
-                    <button className="btn-scroll-up" onClick={()=>{window.scrollTo(0,0)}}><FaAngleUp /></button>
                     <Footer/>
                 </div>
             </Router>

@@ -22,7 +22,7 @@ const Navigation = ({user,cart,favourite,searchItem,userLogOut})=>{
                     <ul className="top-nav">
                         <li className="btn-bars for-mob" onClick={()=>{setSideMenu(!sideMenu)}}><FaBars/></li>
                         <li className='web-name'>My-Eco<span className="domain">.com</span></li>
-                        <li className="top-nav-search-btn for-mob"><FaSearch onClick={()=>{setNavigation(false);setMobSearch("d-block")}}/></li>
+                        <li className="top-nav-search-btn for-mob"><FaSearch onClick={()=>{if(location.pathname ==="/My-Eco/" ){setNavigation(false);setMobSearch("d-block")}}}/></li>
                     </ul>
                     <ul className={`side-nav ${sideMenu?"d-none":""}`}>
                         <li className='main-menu'>
@@ -50,7 +50,7 @@ const Navigation = ({user,cart,favourite,searchItem,userLogOut})=>{
                 </nav>
             }
             {
-                location.pathname ==="/My-Eco/" &&
+                (location.pathname ==="/My-Eco/"|| location.pathname === "/My-Eco") &&
                 <div className={`search-container ${mobSearch}`}>
                     <div>
                         <form onSubmit={handleSubmit}>

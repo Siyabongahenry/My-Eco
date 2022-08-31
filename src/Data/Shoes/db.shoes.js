@@ -8,7 +8,7 @@ export const shoes = [
       "discount": 0,
       "price": 2800,
       "quantity": 4,
-      "category": "Formal",
+      "category": "Sneaker",
       "description": "sdjsjj jdjjdj jjdhh jsjdjj du jjdu hjdjuj uhdjj uydhh jduu h",
       "sizes": [
         {
@@ -40,6 +40,47 @@ export const shoes = [
       "files": [
         "IMG-20220105-WA0004.jpg",
         "IMG-20220111-WA0003.jpg"
+      ],
+      "Ratings":5
+    },
+    {
+      "id": 111,
+      "name": "Men's Formal Shoes",
+      "originalPrice": 1800,
+      "discount": 0,
+      "price": 1800,
+      "quantity": 4,
+      "category": "Formal",
+      "description": "sdjsjj jdjjdj jjdhh jsjdjj du jjdu hjdjuj uhdjj uydhh jduu h",
+      "sizes": [
+        {
+          "size": 4,
+          "quantity": 10
+        },
+        {
+          "size": 5,
+          "quantity": 10
+        },
+        {
+          "size": 6,
+          "quantity": 10
+        },
+        {
+          "size": 7,
+          "quantity": 0
+        },
+        {
+          "size": 8,
+          "quantity": 4
+        },
+        {
+          "size": 9,
+          "quantity": 10
+        }
+      ],
+      "fileName": "f11.jpg",
+      "files": [
+        "f11.jpg"
       ],
       "Ratings":5
     },
