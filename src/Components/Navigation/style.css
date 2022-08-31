@@ -112,6 +112,20 @@ nav .authentication li:hover .menu-link{
     background-color:var(--theme-sec-color);
     color:white;
 }
+
+.btn-bars{
+    animation: click-alert 1s linear 5;
+}
+
+@keyframes click-alert {
+    0%{
+        background-color:white;
+    }
+    100%{
+        background-color:var(--theme-sec-color);
+        color:white;
+    }
+}
 @media only screen and (min-width:900px){
     .for-mob{
         display: none;
