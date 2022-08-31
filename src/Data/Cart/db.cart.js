@@ -64,6 +64,7 @@ export const updateQuantity = (_id,_quantity)=>{
             if(item.id  === _id)
             {
                 item.quantity = _quantity;
+                item.subtotal = item.quantity * item.shoe.price;
             }
             return item;
         })

@@ -1,6 +1,7 @@
 import "./style.css";
 import { useState } from "react";
 import { priceFormat } from "../../Services/Format/currency";
+import{FaCaretDown,FaCaretUp} from "react-icons/fa";
 
 const PriceFilter =({filterByPrice})=>{
     const[prices,setPrices] = useState(
@@ -37,6 +38,9 @@ const PriceFilter =({filterByPrice})=>{
             }
             
         ]);
+
+    //display price range
+    const[showPriceRange,setShowPriceRange] = useState(true);
     const changePrice=(lowest,highest)=>{
         setPrices(prices.map((price)=>{
             price.selected = price.lowest === lowest;
@@ -45,16 +49,18 @@ const PriceFilter =({filterByPrice})=>{
         filterByPrice(lowest,highest);
     }
     return (
-        <div className="store-filter">
-            <h3>Filter By Price</h3>
-            <ul>
-                {
-                    prices.map(
-                    (price)=>
-                        <li className={`list-select ${price.selected && "selected"}`} key={price.lowest} onClick={()=>{changePrice(price.lowest,price.highest)}}>{price.text}</li>
-                    )
-                }
-            </ul>
+        <div className="price-filter">
+            <h3 onClick={()=>{setShowPriceRange((prevValue)=>(!prevValue))}}>Filter By Price {(showPriceRange && <FaCaretUp />) ||  <FaCaretDown/>}</h3>
+            {showPriceRange &&    
+                <ul className="price-ranges">
+                    {
+                        prices.map(
+                        (price)=>
+                            <li className={`list-select ${price.selected && "selected"}`} key={price.lowest} onClick={()=>{changePrice(price.lowest,price.highest)}}>{price.text}</li>
+                        )
+                    }
+                </ul>
+            }
         </div>
     );
 }

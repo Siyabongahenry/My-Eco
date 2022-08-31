@@ -29,7 +29,7 @@ import {get as getFavFromDb,
  remove as removeFavFromDb,
  count as countFavItems
 } from "./Data/Favourite/retrieve.favourites";
-
+import { FaAngleUp } from "react-icons/fa";
 
 export const UserContext = createContext();
 
@@ -195,6 +195,7 @@ function App()
                     item.quantity = _increaseQuantity? 
                     item.quantity+1:item.quantity > 1? //increase quantity by one
                     item.quantity-1:item.quantity; //reduce quantity by one if quantity is > 1
+                    item.subtotal =item.quantity * item.shoe.price;
                 }
                 return item;
             })
@@ -318,9 +319,10 @@ function App()
                                     <Chat/>      
                                 }
                             />    
-
                         </Routes>
                     </div>
+
+                    <button className="btn-scroll-up" onClick={()=>{window.scrollTo(0,0)}}><FaAngleUp /></button>
                     <Footer/>
                 </div>
             </Router>
