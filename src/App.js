@@ -11,7 +11,6 @@ import Chat from "./Components/Chat";
 import Favourite from "./Components/Favourite";
 import Profile from "./Components/Profile";
 import Order from "./Components/Order";
-import OrderComplete from "./Components/OrderComplete";
 import Payment from "./Components/Payment";
 import Register from "./Components/Register";
 import {getShoes as getShoesFromDb,
@@ -23,7 +22,7 @@ import {getCart as getCartFromDb,
     getCartItems as getCartItemsFromDb,
     addCartItem as addCartItemToDb,
     removeCartItem as rvCartItemFromDb,
-    clearCartItems
+    clearCartItems, updateCartItemQuantity as updateItemQuantity
 } from "./Data/Cart/retrieve.cart";
 import {get as getFavFromDb,
  add as addFavToDb,
@@ -184,6 +183,31 @@ function App()
          console.log(e);
        });
     }
+
+    //this function update the quantity of the cart item in the state
+    //it takes to parameters, the item id and a boolean value that identify if the quantity increase or decrease
+    const changeCartItemQuantity =(_itemId,_increaseQuantity=true)=>{
+        setCartItems([
+            ...cartItems.map((item)=>{
+
+                if (_itemId === item.id)
+                {
+                    item.quantity = _increaseQuantity? 
+                    item.quantity+1:item.quantity > 1? //increase quantity by one
+                    item.quantity-1:item.quantity; //reduce quantity by one if quantity is > 1
+                }
+                return item;
+            })
+        ]);
+    }
+
+    const saveQuantChanges =(_itemId,_quantity)=>{
+        updateItemQuantity(_itemId,_quantity)
+        .then(setCartItems)
+        .catch((e)=>{
+            console.log(e);
+        })
+    }
     const getFav = ()=>{
         getFavFromDb()
         .then((response)=>{
@@ -226,9 +250,11 @@ function App()
     }
     const cart_props={
         "delCartItem":delCartItem,
-        "cart":cart,
-        "cartItems":cartItems,
-        "clearCart":clearCart
+        cart,
+        cartItems,
+        "clearCart":clearCart,
+        "changeCartItemQuantity":changeCartItemQuantity,
+        "saveQuantChanges":saveQuantChanges
     }
     return (
         <UserContext.Provider value={user}>

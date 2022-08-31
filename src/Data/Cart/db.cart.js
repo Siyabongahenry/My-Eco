@@ -58,3 +58,16 @@ export const clear=()=>{
     return cartItems;
 }
 
+export const updateQuantity = (_id,_quantity)=>{
+    cartItems=[
+        ...cartItems.filter((item)=>{
+            if(item.id  === _id)
+            {
+                item.quantity = _quantity;
+            }
+            return item;
+        })
+    ]
+    updateCart();
+    return cartItems;
+}

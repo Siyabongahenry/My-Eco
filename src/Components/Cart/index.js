@@ -6,7 +6,7 @@ import emptyCart from "./empty-cart.svg";
 import onlinePayment from "./online.png";
 import { UserContext } from "../../App";
 import { useContext } from "react";
-const Cart =({cart,cartItems,delCartItem})=>{
+const Cart =({cart,cartItems,delCartItem,changeCartItemQuantity:changeQuantity,saveQuantChanges})=>{
 
     const user = useContext(UserContext);
     const navigate = useNavigate();
@@ -51,8 +51,8 @@ const Cart =({cart,cartItems,delCartItem})=>{
                                                         {item.shoe?.name}
                                                     </p>
                                                     <div className="text-center">
-                                                        Quantity: {item.quantity > 1 && <FaMinus className="btn-quantity"/>} <span className="quantity">{item.quantity}</span> <FaPlus className="btn-quantity"/>
-                                                        <br/><button className="btn-save-changes m-2">save</button>
+                                                        Quantity: {item.quantity > 1 && <FaMinus className="btn-quantity" onClick={()=>{changeQuantity(item.id,false)}}/>} <span className="quantity">{item.quantity}</span> <FaPlus className="btn-quantity" onClick={()=>{changeQuantity(item.id)}}/>
+                                                        <br/><button className="btn-save-changes m-2" onClick={()=>{saveQuantChanges(item.id,item.quantity)}}>save</button>
                                                     </div>
                                                     <p className="item-price">
                                                         { priceFormat(item.shoe?.price)}

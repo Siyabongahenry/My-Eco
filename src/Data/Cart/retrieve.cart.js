@@ -1,4 +1,4 @@
-import { add,cart,cartItems,remove,clear } from "./db.cart";
+import { add,cart,cartItems,remove,clear,updateQuantity } from "./db.cart";
 import { shoes } from "../Shoes/db.shoes";
 export const addCartItem = (_shoe,_size)=> {
     const promise = new Promise((accept,reject)=>{
@@ -41,6 +41,18 @@ export const getCartItems =()=>{
     return promise;
 }
 
+export const updateCartItemQuantity = (_itemId=null,_quantity=null)=>{
+    const promise = new Promise((accept,reject)=>{
+        if(_itemId !=null && _quantity != null)
+        {
+            accept(updateQuantity(_itemId,_quantity));
+        }
+        else{
+            reject("The id or the quantity was null");
+        }
+    });
+    return promise;
+}
 export const removeCartItem = (_id)=>{
     const promise = new Promise((accept,reject)=>{
         let itemExist = cartItems.some(({id})=> id === _id);
