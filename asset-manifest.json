@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/My-Eco/static/css/main.eaf2576a.css",
+    "main.css": "/My-Eco/static/css/main.f3c143aa.css",
     "main.js": "/My-Eco/static/js/main.4b2d0824.js",
     "static/js/787.fb8f49c4.chunk.js": "/My-Eco/static/js/787.fb8f49c4.chunk.js",
     "static/media/online.png": "/My-Eco/static/media/online.fedc6669ea24b2be3818.png",
@@ -8,12 +8,12 @@
     "static/media/lock.png": "/My-Eco/static/media/lock.9d382cee9b510d476ef9.png",
     "static/media/empty-cart.svg": "/My-Eco/static/media/empty-cart.ac07ef4caa09979ff87e9bfda3d2cc1c.svg",
     "index.html": "/My-Eco/index.html",
-    "main.eaf2576a.css.map": "/My-Eco/static/css/main.eaf2576a.css.map",
+    "main.f3c143aa.css.map": "/My-Eco/static/css/main.f3c143aa.css.map",
     "main.4b2d0824.js.map": "/My-Eco/static/js/main.4b2d0824.js.map",
     "787.fb8f49c4.chunk.js.map": "/My-Eco/static/js/787.fb8f49c4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eaf2576a.css",
+    "static/css/main.f3c143aa.css",
     "static/js/main.4b2d0824.js"
   ]
 }
