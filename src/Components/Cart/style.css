@@ -53,7 +53,7 @@
 }
 .cart-item .quantity{
     display: inline-block;
-    width:20px;
+    width:50px;
     text-align: center;
 }
 .cart-item .item-name{

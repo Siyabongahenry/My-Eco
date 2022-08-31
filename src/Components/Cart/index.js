@@ -1,15 +1,39 @@
 import "./style.css";
-import { FaShoppingCart,FaMinus,FaTrash, FaPlus,FaEye} from "react-icons/fa";
+import { FaShoppingCart,FaMinus,FaTrash, FaPlus,FaEye, FaSearch} from "react-icons/fa";
 import { priceFormat } from "../../Services/Format/currency";
 import { Link, useNavigate } from "react-router-dom";
 import emptyCart from "./empty-cart.svg";
 import onlinePayment from "./online.png";
 import { UserContext } from "../../App";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 const Cart =({cart,cartItems,delCartItem,changeCartItemQuantity:changeQuantity,saveQuantChanges})=>{
 
     const user = useContext(UserContext);
     const navigate = useNavigate();
+    //store id's buttons that need to be clicked to save quantity changes
+    const[saveBtnId,setSaveBtnId] = useState([]);
+
+    //show the item save btn if it exist in the list of buttons 
+    //that need to be clicked to save changes
+    const showSaveBtn = (_id)=>{
+        if(saveBtnId.some((id)=> id === _id))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    const handleQuantity =(_itemId,_increase)=>{
+        changeQuantity(_itemId,_increase);
+        //add the btn to the list of buttons that have to be clicked to save changes
+        setSaveBtnId([...saveBtnId,_itemId]);
+    }
+
+    const handleSaveQ = (_itemId,_quantity)=>{
+        saveQuantChanges(_itemId,_quantity);
+        //remove the btn from the list after saving changes
+        setSaveBtnId([...saveBtnId.filter((id)=> id != _itemId)]);
+    }
     const handleCheckout = ()=>{
         if(!user.login)
         {
@@ -51,11 +75,13 @@ const Cart =({cart,cartItems,delCartItem,changeCartItemQuantity:changeQuantity,s
                                                         {item.shoe?.name}
                                                     </p>
                                                     <div className="text-center">
-                                                        Quantity: {item.quantity > 1 && <FaMinus className="btn-quantity" onClick={()=>{changeQuantity(item.id,false)}}/>} <span className="quantity">{item.quantity}</span> <FaPlus className="btn-quantity" onClick={()=>{changeQuantity(item.id)}}/>
-                                                        <br/><button className="btn-save-changes m-2" onClick={()=>{saveQuantChanges(item.id,item.quantity)}}>save</button>
+                                                        Quantity: {item.quantity > 1 && <FaMinus className="btn-quantity" onClick={()=>{handleQuantity(item.id,false)}}/>}
+                                                        <span className="quantity">{item.quantity}</span> 
+                                                        <FaPlus className="btn-quantity" onClick={()=>{handleQuantity(item.id,true)}}/>
+                                                        {showSaveBtn(item.id) && <button className="btn-save-changes m-2" onClick={()=>{handleSaveQ(item.id,item.quantity)}}>save</button>}
                                                     </div>
                                                     <p className="item-price">
-                                                        { priceFormat(item.shoe?.price)}
+                                                        {priceFormat(item.shoe?.price)}
                                                     </p>
                                                     <p className="text-end">
                                                         <b>subtotal: { priceFormat(item.subtotal)}</b>
