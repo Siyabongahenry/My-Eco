@@ -1,7 +1,7 @@
 ## MY-Eco
-
-This a simple E-commerse website front-end created using React.js.
-
+<p align="center">
+     This a simple E-commerse website front-end created using React.js.
+</p>
 <p align="center">
      <a href="https://siyabongahenry.github.io/My-Eco/" target="_blank">Visit the Website here</a>
 </p>
