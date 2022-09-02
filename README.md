@@ -7,8 +7,8 @@
 </p>
 <h2> Home Page</h2>
 <p align="center>
-     <img src="https://github.com/Siyabongahenry/Project-Images/blob/main/My-Ecore/img1.jpg" width="300"/>
-     <img src="https://github.com/Siyabongahenry/Project-Images/blob/main/My-Ecore/img2.jpg"/>
+     <img src="https://github.com/Siyabongahenry/Project-Images/blob/main/My-Ecore/img1.jpg" width="200px"/>
+     <img src="https://github.com/Siyabongahenry/Project-Images/blob/main/My-Ecore/img2.jpg" width="200px"/>
 </p>
 <h2> Details Page</h2>
 <p align="center">
