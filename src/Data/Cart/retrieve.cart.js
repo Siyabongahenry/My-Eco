@@ -2,6 +2,7 @@ import { add,cart,cartItems,remove,clear,updateQuantity } from "./db.cart";
 import { shoes } from "../Shoes/db.shoes";
 export const addCartItem = (_shoe,_size)=> {
     const promise = new Promise((accept,reject)=>{
+        //check if shoe exist
         const shoeExistInStore = shoes.some(({id})=> id === _shoe.id);
         if(shoeExistInStore)
         {

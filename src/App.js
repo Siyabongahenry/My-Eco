@@ -77,6 +77,7 @@ function App()
         updateCart();
     },[cartItems]);
 
+    //update user login status
     const userLogin =(_email,_password)=>{
         if(_email === user.details.email && _password === user.details.password)
         {
@@ -85,15 +86,16 @@ function App()
         }
         return false;
     }
+    //register new user
     const registerUser = (_details)=>{
         console.log(_details);
         setUser({...user,details:{..._details}});
     }
-
+    //sign out a user from the website
     const userLogout = ()=>{
         setUser({...user,"login":false});
     }
-    //search items
+    //search items in store
     const searchItem = (value)=>{
         getShoesFromDb(store.displayItems,value)
         .then(setShoes)
@@ -109,7 +111,7 @@ function App()
             console.log(e);
         });
     }
-    //show more shoes in store by appending more
+    //show more shoes in store by appending more in the shoe state
     const getMoreShoes =()=>{
         getMoreShoesFromDb(store.displayItems,store.category)
         .then((response)=>{
@@ -175,6 +177,7 @@ function App()
     const clearCart=()=>{
         setCartItems(clearCartItems());
     }
+    //delete an item with a specific address in a cart items
     const delCartItem=(_id)=>{
        rvCartItemFromDb(_id)
         .then(setCartItems)
@@ -201,6 +204,7 @@ function App()
         ]);
     }
 
+    //save changes to the fake database
     const saveQuantChanges =(_itemId,_quantity)=>{
         updateItemQuantity(_itemId,_quantity)
         .then(setCartItems)
@@ -208,6 +212,8 @@ function App()
             console.log(e);
         })
     }
+
+    //get favoutites items from the favourite table
     const getFav = ()=>{
         getFavFromDb()
         .then((response)=>{
@@ -217,6 +223,7 @@ function App()
             console.log(e);
         }); 
     }
+    //remove item with specific id from favorite list
     const removeFromFav = (id)=>{
         removeFavFromDb(id)
         .then((response)=>{
@@ -226,6 +233,8 @@ function App()
             console.log(e);
         });
     }
+
+    //add new item to the favourite list
     const addToFav = (item)=>{
         addFavToDb(item)
         .then((response)=>{

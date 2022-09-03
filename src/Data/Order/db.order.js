@@ -2,7 +2,7 @@ import { getTime,getDate} from "../../Services/Format/date";
 export const orders = []
 
 export const add=(_cartItems,_quantity,_total,_paid,{id:_userId,address:_address})=>{
-
+    //generate id using random numbers
     const generateId = Math.floor(Math.random()*1000000)+1;
     const order = {
         id:generateId,

@@ -8,6 +8,7 @@ const Navigation = ({user,cart,favourite,searchItem,userLogOut})=>{
     const[navigation,setNavigation] = useState(true);
     const[mobSearch,setMobSearch] = useState("");
     const[searchValue,setSearchValue]=useState("");
+    
     const handleSubmit = (e)=>{
         e.preventDefault();
         searchItem(searchValue.toLowerCase());

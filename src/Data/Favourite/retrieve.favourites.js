@@ -13,7 +13,8 @@ export const get = ()=>{
 }
 export const add = (item)=>{
      const promise = new Promise((accept,reject)=>{
-        const itemExist = favourite.find(({id})=>id===item.id);
+        //confirm if item exist
+        const itemExist = favourite.some(({id})=>id===item.id);
         if(itemExist)
         {
             reject("Item already exist..");
@@ -28,7 +29,8 @@ export const add = (item)=>{
 
 export const remove = (id)=>{
     const promise = new Promise((accept,reject)=>{
-        const itemExist = favourite.find(({id:itemId})=>itemId === id);
+        //confirm if item exist 
+        const itemExist = favourite.some(({id:itemId})=>itemId === id);
         if(itemExist)
         {
             let items = removeFromDb(id);
